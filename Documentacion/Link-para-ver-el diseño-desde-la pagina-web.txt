@@ -1,0 +1,3 @@
+Ingrese al siguiente link:
+https://marvelapp.com/3cc9b3h/screen/47159924
+Podrá observar las 19 actividades que se realizaron para el proyecto, se desplaza mediante las flechas, en caso que el link no funcione podrá observar las actividades a una menor resolución en Documentación/Diseño-de-la-aplicación dentro del GitHub del proyecto.
