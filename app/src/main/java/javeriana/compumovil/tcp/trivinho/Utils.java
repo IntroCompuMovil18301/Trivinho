@@ -5,8 +5,6 @@ public class Utils {
     static final String PATH_USERS = "usuarios/";
     static final String PATH_HUESPEDES = "huespedes/";
     static final String PATH_ANFITRIONES = "anfitriones/";
-    falso
-
     private static String PATH_FECHAS = "fechasdisponibles/";
     private static String PATH_ALOJAMIENTOS = "alojamientos/";
     private static String PATH_FOTOSALOJAMIENTO = "fotosalojamientos/";
