@@ -22,10 +22,6 @@ public class AgregarAlojamientoActivity extends AppCompatActivity {
     private EditText mDescripcion;
     private Button salir;
     private Button inicio;
-
-
-
-
     private FirebaseAuth mAuth;
 
     @Override
