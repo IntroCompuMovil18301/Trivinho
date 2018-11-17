@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class ReservarAlojamiento extends AppCompatActivity {
@@ -20,6 +21,10 @@ public class ReservarAlojamiento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservar_alojamiento);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map3);
+        mapFragment.getMapAsync((OnMapReadyCallback) this);
 
 
         mfechaInicio.setOnClickListener(new View.OnClickListener() {
