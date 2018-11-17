@@ -43,6 +43,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -81,6 +82,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
     private double longitudActual;
 
     private Button buscar;
+    private Button reservar;
 
     private double latitudBusqueda;
     private double longitudBusqueda;
@@ -98,6 +100,8 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private Button salir;
     private Button inicio;
+
+    private Alojamiento alojamientoSeleccionado;
 
     private FirebaseAuth mAuth;
 
@@ -126,6 +130,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mfechaFinal = (EditText) findViewById(R.id.fechaFinal2);
 
         buscar = (Button) findViewById(R.id.buscar2);
+        reservar = (Button) findViewById(R.id.reservar);
 
         mAddress = (EditText) findViewById(R.id.ubicacion2);
         mGeocoder = new Geocoder(getBaseContext());
@@ -203,6 +208,22 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
             }
         });
 
+        reservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reservar();
+            }
+        });
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.getTag()!= null)
+                 alojamientoSeleccionado = (Alojamiento) marker.getTag();
+                return true;
+            }
+        });
+
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +233,8 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 startActivity(intent);
             }
         });
+
+
     }
 
 
@@ -232,6 +255,17 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+    }
+
+    private void reservar(){
+        if (alojamientoSeleccionado!=null) {
+            Intent intent = new Intent(ConsultarAlojamientoActivity.this, ReservarAlojamiento.class);
+            intent.putExtra("alojamiento", alojamientoSeleccionado);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Debe seleccionar un alojamiento.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void buscarUbicacion() {
@@ -379,7 +413,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Alojamiento alojamiento = singleSnapshot.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
-                        colocarAlojamiento(alojamiento.getLatitud(), alojamiento.getLongitud());
+                        colocarAlojamiento(alojamiento);
                     }
                 }
             }
@@ -406,7 +440,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
             @Override
             public void onDataChange(final DataSnapshot dataSnapshotAlojamiento) {
-                for (DataSnapshot singleSnapshotAlojamiento : dataSnapshotAlojamiento.getChildren()) {
+                for (final DataSnapshot singleSnapshotAlojamiento : dataSnapshotAlojamiento.getChildren()) {
                     final Alojamiento alojamiento = singleSnapshotAlojamiento.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
                         myRef2 = database.getReference(Utils.getPathFechas()+singleSnapshotAlojamiento.getKey());
@@ -416,7 +450,9 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                                 for (DataSnapshot singleSnapshotFechaDisp : dataSnapshotFechaDisp.getChildren()) {
                                     FechaDisponible fechaDisponible = singleSnapshotFechaDisp.getValue(FechaDisponible.class);
                                         if (alojamientoDisponible(fechaDisponible)){
-                                            colocarAlojamiento(alojamiento.getLatitud(), alojamiento.getLongitud());
+                                            alojamiento.setId(singleSnapshotAlojamiento.getKey());
+                                            colocarAlojamiento(alojamiento);
+
                                         }
                                 }
                             }
@@ -504,10 +540,11 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.addCircle(circleOptions);
     }
 
-    private void colocarAlojamiento (double latitud, double longitud){
-        LatLng ubicacion = new LatLng(latitud, longitud);
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title("Alojamiento")
+    private void colocarAlojamiento (Alojamiento alojamiento){
+        LatLng ubicacion = new LatLng(alojamiento.getLatitud(), alojamiento.getLongitud());
+        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title("Alojamiento")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)));
+        amarker.setTag(alojamiento);
     }
 
 

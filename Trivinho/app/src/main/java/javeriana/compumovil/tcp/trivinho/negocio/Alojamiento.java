@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Alojamiento implements Serializable {
+    private String id;
     private String tipo;
     private Double valorPorNoche;
     private String tipoMoneda;
@@ -68,4 +69,11 @@ public class Alojamiento implements Serializable {
         this.longitud = longitud;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
