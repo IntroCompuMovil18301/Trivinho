@@ -8,6 +8,9 @@ public class Usuario {
     private String pais;
     private String rutaFoto;
 
+    private Boolean esAnfitrion;
+    private Boolean esHuesped;
+
 
     private String genero;
 
@@ -70,4 +73,19 @@ public class Usuario {
         this.genero = genero;
     }
 
+    public Boolean getEsAnfitrion() {
+        return esAnfitrion;
+    }
+
+    public void setEsAnfitrion(Boolean esAnfitrion) {
+        this.esAnfitrion = esAnfitrion;
+    }
+
+    public Boolean getEsHuesped() {
+        return esHuesped;
+    }
+
+    public void setEsHuesped(Boolean esHuesped) {
+        this.esHuesped = esHuesped;
+    }
 }

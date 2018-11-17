@@ -142,27 +142,29 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
 
     private void guardarAlojamiento (){
         if (comprobarNumFechas()){
-            String alojamientoNom = alojamiento.getLatitud()+ " "+ alojamiento.getLongitud();
             int i=0;
+
+
+            myRef = database.getReference(Utils.getPathAlojamientos());
+            String key = myRef.push().getKey();
+            myRef = database.getReference(Utils.getPathAlojamientos()+key);
+            myRef.setValue(alojamiento);
 
 
             List<byte[]> fotos = (ArrayList) ((ArrayList)ImageAdapter.getImagenes()).clone();
             ImageAdapter.limpiarImagenes();
             for (byte[] foto: fotos){
-                uploadImage(alojamientoNom, i, foto);
+                uploadImage(key, i, foto);
                 i++;
             }
 
+            int numeroFecha=0;
             for (FechaDisponible fechaDisponible: fechasDisponibles){
-                myRef = database.getReference(Utils.getPathFechas());
-                String key = myRef.push().getKey();
-                myRef = database.getReference(Utils.getPathFechas()+key);
+                myRef = database.getReference(Utils.getPathFechas()+key+"/"+String.valueOf(numeroFecha));
                 myRef.setValue(fechaDisponible);
+                numeroFecha++;
             }
-            myRef = database.getReference(Utils.getPathAlojamientos());
-            String key = myRef.push().getKey();
-            myRef = database.getReference(Utils.getPathAlojamientos()+key);
-            myRef.setValue(alojamiento);
+
 
             Toast.makeText(this, "Alojamiento agregado con éxito.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, UsuarioMainActivity.class);
@@ -171,9 +173,11 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage (String alojamiento, int numeroFoto, byte[] foto){
+    private void uploadImage (String IDalojamiento, int numeroFoto, byte[] foto){
 
-        final String rutafotoFireBase = "imagenes/alojamientos/fotosalojamiento/"+alojamiento+"/"+ String.valueOf(numeroFoto)+ ".jgp";
+        final String rutafotoFireBase = "imagenes/alojamientos/fotosalojamiento/"+IDalojamiento+"/"+ String.valueOf(numeroFoto)+ ".jgp";
+        final String IDalojamiento_ = IDalojamiento;
+        final int numeroFoto_ = numeroFoto;
         StorageReference fotoUsuario = mStorageRef.child(rutafotoFireBase);
 
 
@@ -184,7 +188,7 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
-                        guardarImagenBD(rutafotoFireBase);
+                        guardarImagenBD(rutafotoFireBase, IDalojamiento_, numeroFoto_);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -197,14 +201,11 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
     }
 
 
-    private void guardarImagenBD (String ruta){
+    private void guardarImagenBD (String ruta, String IDalojamiento, int numeroFoto){
         myRef = database.getReference(Utils.getPathFotosalojamiento());
-        String key = myRef.push().getKey();
         FotoAlojamiento fotoAlojamiento= new FotoAlojamiento();
         fotoAlojamiento.setRutaFoto(ruta);
-        fotoAlojamiento.setLatitud(alojamiento.getLatitud());
-        fotoAlojamiento.setLongitud(alojamiento.getLongitud());
-        myRef = database.getReference(Utils.getPathFotosalojamiento()+key);
+        myRef = database.getReference(Utils.getPathFotosalojamiento()+IDalojamiento+"/"+String.valueOf(numeroFoto));
         myRef.setValue(fotoAlojamiento);
     }
 
@@ -243,8 +244,6 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
                 fecha.setMesFinal(final_date.get(Calendar.MONTH)+1);
                 fecha.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
 
-                fecha.setLatitud(alojamiento.getLatitud());
-                fecha.setLongitud(alojamiento.getLongitud());
 
                 fechasDisponibles.add(fecha);
 

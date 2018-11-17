@@ -17,7 +17,6 @@ public class Alojamiento implements Serializable {
 
 
 
-
     public Alojamiento() {
     }
 

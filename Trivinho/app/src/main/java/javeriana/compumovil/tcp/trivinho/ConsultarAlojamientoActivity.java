@@ -409,22 +409,17 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 for (DataSnapshot singleSnapshotAlojamiento : dataSnapshotAlojamiento.getChildren()) {
                     final Alojamiento alojamiento = singleSnapshotAlojamiento.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
-                        myRef2 = database.getReference(Utils.getPathFechas());
+                        myRef2 = database.getReference(Utils.getPathFechas()+singleSnapshotAlojamiento.getKey());
                         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshotFechaDisp) {
                                 for (DataSnapshot singleSnapshotFechaDisp : dataSnapshotFechaDisp.getChildren()) {
                                     FechaDisponible fechaDisponible = singleSnapshotFechaDisp.getValue(FechaDisponible.class);
-                                    if (alojamiento.getLongitud()==fechaDisponible.getLongitud() && fechaDisponible.getLatitud() == alojamiento.getLatitud()){
                                         if (alojamientoDisponible(fechaDisponible)){
                                             colocarAlojamiento(alojamiento.getLatitud(), alojamiento.getLongitud());
                                         }
-                                    }
-
                                 }
-
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                                 Log.w("Error", "error en la consulta", databaseError.toException());
@@ -558,6 +553,5 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         }
         return validos;
     }
-
 
 }

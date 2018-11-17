@@ -47,8 +47,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import javeriana.compumovil.tcp.trivinho.negocio.Anfitrion;
-import javeriana.compumovil.tcp.trivinho.negocio.Huesped;
 import javeriana.compumovil.tcp.trivinho.negocio.Usuario;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -377,38 +375,24 @@ public class RegistroActivity extends AppCompatActivity {
         usuario.setPais(mPais.getSelectedItem().toString());
         usuario.setGenero(mGenero.getSelectedItem().toString());
 
-        myRef = database.getReference(Utils.getPathUsers()+user.getUid());
-        myRef.setValue(usuario);
+
 
         if (mEsHuesped.isChecked()) {
-            Huesped huesped = new Huesped();
-            huesped.setRutaFoto(rutaFoto);
-            huesped.setNombres(mNombre.getText().toString());
-            huesped.setApellidos(mApellido.getText().toString());
-            huesped.setEmail(mEmail.getText().toString());
-            huesped.setEdad(Integer.parseInt(mEdad.getText().toString()));
-            huesped.setPais(mPais.getSelectedItem().toString());
-            huesped.setGenero(mGenero.getSelectedItem().toString());
-
-            myRef = database.getReference(Utils.getPathHuespedes() + user.getUid());
-            myRef.setValue(huesped);
+            usuario.setEsHuesped(true);
+        }
+        else{
+            usuario.setEsHuesped(false);
         }
 
         if (mEsAnfitrion.isChecked()) {
-            Anfitrion anfitrion = new Anfitrion();
-            anfitrion.setRutaFoto(rutaFoto);
-            anfitrion.setNombres(mNombre.getText().toString());
-            anfitrion.setApellidos(mApellido.getText().toString());
-            anfitrion.setPais(mPais.getSelectedItem().toString());
-            anfitrion.setEmail(mEmail.getText().toString());
-            anfitrion.setEdad(Integer.parseInt(mEdad.getText().toString()));
-            anfitrion.setPais(mPais.getSelectedItem().toString());
-            anfitrion.setGenero(mGenero.getSelectedItem().toString());
-
-
-            myRef = database.getReference(Utils.getPathAnfitriones() + user.getUid());
-            myRef.setValue(anfitrion);
+            usuario.setEsAnfitrion(true);
         }
+        else{
+            usuario.setEsAnfitrion(false);
+        }
+
+        myRef = database.getReference(Utils.getPathUsers()+user.getUid());
+        myRef.setValue(usuario);
 
         startActivity(new Intent(RegistroActivity.this, UsuarioMainActivity.class));
 

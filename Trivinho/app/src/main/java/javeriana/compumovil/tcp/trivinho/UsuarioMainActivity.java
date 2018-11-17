@@ -185,38 +185,12 @@ public class UsuarioMainActivity extends AppCompatActivity {
                         mPais.setText("Pais: "+myUser.getPais());
                         mGenero.setText("Genero: "+myUser.getGenero());
                         descargaryMostrarFoto(myUser.getRutaFoto());
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Error al contactar con la base de datos.", databaseError.toException());
-            }
-        });
-
-        myRef = database.getReference(Utils.getPathHuespedes());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            FirebaseUser user = mAuth.getCurrentUser();
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    if (singleSnapshot.getKey().equals(user.getUid())){
-                        inicializarMenuHuesped();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Error al contactar con la base de datos.", databaseError.toException());
-            }
-        });
-
-        myRef = database.getReference(Utils.getPathAnfitriones());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            FirebaseUser user = mAuth.getCurrentUser();
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    if (singleSnapshot.getKey().equals(user.getUid())){
-                        inicializarMenuAnfitrion();
+                        if (myUser.getEsAnfitrion()){
+                            inicializarMenuAnfitrion();
+                        }
+                        if (myUser.getEsHuesped()){
+                            inicializarMenuHuesped();
+                        }
                     }
                 }
             }
