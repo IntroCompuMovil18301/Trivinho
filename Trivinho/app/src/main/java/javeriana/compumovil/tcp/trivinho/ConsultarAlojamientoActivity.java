@@ -110,7 +110,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
-        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(this)));
+        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(this.getBaseContext())));
 
         salir = (Button) findViewById(R.id.salir7);
         inicio = (Button) findViewById(R.id.button5);
