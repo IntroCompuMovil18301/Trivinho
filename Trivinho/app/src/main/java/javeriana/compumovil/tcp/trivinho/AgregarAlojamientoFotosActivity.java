@@ -108,7 +108,6 @@ public class AgregarAlojamientoFotosActivity extends AppCompatActivity {
 
     private void agregarFotos(){
         if (validarNumFotos()) {
-
             Intent intent = new Intent(this, AgregarAlojamientoUbicacionActivity.class);
             Alojamiento alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
             Bundle bundle = new Bundle ();

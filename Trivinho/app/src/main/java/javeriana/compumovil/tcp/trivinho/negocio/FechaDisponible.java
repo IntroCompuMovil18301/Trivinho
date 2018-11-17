@@ -11,8 +11,6 @@ public class FechaDisponible {
     private int anioFinal;
 
 
-    private double latitud;
-    private double longitud;
 
     public int getDiaInicio() {
         return diaInicio;
@@ -62,19 +60,4 @@ public class FechaDisponible {
         this.anioFinal = anioFinal;
     }
 
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
 }
