@@ -11,6 +11,10 @@
     android:paddingBottom="5dp"
     tools:context=".AgregarAlojamientoActivity">
 
+
+
+    
+
     <TextView
         android:id="@+id/textView34"
         android:layout_width="0dp"
