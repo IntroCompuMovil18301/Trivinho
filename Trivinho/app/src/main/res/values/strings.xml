@@ -11,4 +11,7 @@
     <string name="tipo_alojamiento">Tipo Alojamiento</string>
     <string name="moneda">Moneda</string>
     <string name="fechas">Fechas</string>
+    <string name="capacidad">Capacidad</string>
+    <string name="precio">Precio</string>
+    <string name="detalle">Detalle</string>
 </resources>
