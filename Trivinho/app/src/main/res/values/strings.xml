@@ -14,4 +14,9 @@
     <string name="capacidad">Capacidad</string>
     <string name="precio">Precio</string>
     <string name="detalle">Detalle</string>
+    <string name="reservar_alojamiento">Reservar Alojamiento</string>
+    <string name="sitios_de_interes">Sitios de Interes</string>
+    <string name="reservar">Reservar</string>
+    <string name="ver_perfil">Ver Perfil</string>
+    <string name="comentarios">Comentarios</string>
 </resources>
