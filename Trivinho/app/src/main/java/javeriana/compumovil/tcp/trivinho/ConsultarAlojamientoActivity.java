@@ -63,6 +63,7 @@ import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
 import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
+import javeriana.compumovil.tcp.trivinho.negocio.FotoAlojamiento;
 
 public class ConsultarAlojamientoActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -254,7 +255,6 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-
                 marker.showInfoWindow();
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 if (marker.getTag()!= null)
@@ -553,8 +553,8 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private void colocarAlojamiento (Alojamiento alojamiento){
         LatLng ubicacion = new LatLng(alojamiento.getLatitud(), alojamiento.getLongitud());
-        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title(alojamiento.getTipo())
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)).snippet(alojamiento.getDescripcion()));
+        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title("Hola")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)));
         amarker.setTag(alojamiento);
     }
 
