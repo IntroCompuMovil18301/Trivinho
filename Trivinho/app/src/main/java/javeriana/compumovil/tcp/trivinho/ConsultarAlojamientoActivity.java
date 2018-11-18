@@ -424,6 +424,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Alojamiento alojamiento = singleSnapshot.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
+                        alojamiento.setId(singleSnapshot.getKey());
                         colocarAlojamiento(alojamiento);
                     }
                 }
