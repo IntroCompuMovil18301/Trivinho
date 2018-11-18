@@ -25,6 +25,7 @@ public class Alojamiento implements Serializable {
     public Alojamiento() {
         fechasDisponibles = new ArrayList<FechaDisponible>();
         fotos = new ArrayList<FotoAlojamiento>();
+        puntaje=0;
     }
 
     public float getPuntaje() {

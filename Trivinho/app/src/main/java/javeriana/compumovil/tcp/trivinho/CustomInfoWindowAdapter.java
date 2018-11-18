@@ -29,7 +29,7 @@ import javeriana.compumovil.tcp.trivinho.negocio.FotoAlojamiento;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
-    private final View v;
+    private final View view;
     private static LayoutInflater inflater = null;
     private Context contexto;
     private StorageReference mStorageRef;
@@ -38,11 +38,11 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public CustomInfoWindowAdapter(Context contexto) {
         this.contexto = contexto;
         inflater = (LayoutInflater)contexto.getSystemService(contexto.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.item_comentarios,null);
+        view = inflater.inflate(R.layout.item_comentarios,null);
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
-    private void agregarInformacion(Marker marker, View view){
+    private void agregarInformacion(Marker marker){
         final Alojamiento alojamiento = (Alojamiento) marker.getTag();
         TextView tipo = (TextView) view.findViewById(R.id.infoTipo);
         TextView moneda = (TextView) view.findViewById(R.id.infoMoneda);
@@ -52,10 +52,10 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         Button boton = (Button) view.findViewById(R.id.infoBoton);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
 
-        if(alojamiento!=null){
+        /*if(alojamiento!=null){
             tipo.setText(alojamiento.getTipo());
             moneda.setText(alojamiento.getTipoMoneda());
-            precio.setText(Double.toString(alojamiento.getValorPorNoche()));
+            //precio.setText(Double.toString(alojamiento.getValorPorNoche()));
             descripion.setText(alojamiento.getDescripcion());
             rating.setRating(alojamiento.getPuntaje());
             FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
@@ -70,7 +70,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
                     contexto.startActivity(activar);
                 }
             });
-        }
+        }*/
 
 
 
@@ -78,14 +78,14 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
-        agregarInformacion(marker,v);
-        return v;
+        agregarInformacion(marker);
+        return view;
     }
 
     @Override
     public View getInfoWindow(Marker m) {
-        agregarInformacion(m,v);
-        return v;
+        agregarInformacion(m);
+        return view;
     }
 
     private void descargaryMostrarFoto (String ruta){
