@@ -1,114 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/roundcornerborders">
+    android:layout_height="match_parent"
+    android:scrollbarFadeDuration="0"
+    android:scrollbarSize="8dp"
+    android:scrollbarStyle="outsideOverlay">
 
-    <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/infoimage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="2dp"
-            app:srcCompat="@drawable/imagen_no_disponible"
-            tools:layout_editor_absoluteX="56dp"
-            tools:layout_editor_absoluteY="149dp" />
+        android:background="@drawable/roundcornerborders">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:orientation="vertical"
-            android:padding="2dp">
+            android:id="@+id/linearLayout10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/infoRating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/infoTipo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tipo_alojamiento"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="179dp"
-                tools:layout_editor_absoluteY="78dp" />
+            <ImageView
+                android:id="@+id/infoimage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="2dp"
+                app:srcCompat="@drawable/imagen_no_disponible"
+                tools:layout_editor_absoluteX="56dp"
+                tools:layout_editor_absoluteY="149dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/infoTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_alojamiento"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="12sp"
+                    tools:layout_editor_absoluteX="179dp"
+                    tools:layout_editor_absoluteY="78dp" />
 
                 <TextView
                     android:id="@+id/infoPrecio"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/precio"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/infoMoneda"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/moneda"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="12sp" />
+
             </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/infoBoton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="1dp"
+            android:text="@string/detalle"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/infoRating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+        <RatingBar
+            android:id="@+id/infoRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/descripcion"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoRating" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:scrollbarFadeDuration="0"
+            app:layout_constraintEnd_toEndOf="@+id/infoRating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView48">
 
             <TextView
-                android:id="@+id/textView48"
+                android:id="@+id/infoDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/descripcion"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="12sp" />
+        </ScrollView>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/infoDescripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/descripcion" />
-            </ScrollView>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/infoBoton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/detalle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/infoRating"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
-
-    <RatingBar
-        android:id="@+id/infoRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:numStars="5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

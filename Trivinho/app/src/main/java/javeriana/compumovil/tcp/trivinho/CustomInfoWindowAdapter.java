@@ -52,6 +52,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         Button boton = (Button) view.findViewById(R.id.infoBoton);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
 
+        tipo.setText(marker.getTitle());
+
         if(alojamiento!=null){
             tipo.setText(alojamiento.getTipo());
             moneda.setText(alojamiento.getTipoMoneda());
