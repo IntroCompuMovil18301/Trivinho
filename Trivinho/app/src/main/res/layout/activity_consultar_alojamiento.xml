@@ -82,16 +82,13 @@
             <ListView
                 android:id="@+id/listComentarios"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
                 android:scrollbarSize="5dp"
                 android:scrollbarStyle="outsideInset"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
@@ -116,15 +113,17 @@
                 android:id="@+id/textView31"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/comentarios"
                 android:textAlignment="textStart"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
             <LinearLayout
                 android:id="@+id/linearLayout11"
@@ -158,15 +157,6 @@
                         tools:layout_editor_absoluteY="324dp" />
 
                     <TextView
-                        android:id="@+id/detalleUbicacion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ubicacion"
-                        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="365dp" />
-
-                    <TextView
                         android:id="@+id/detalleValor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -174,6 +164,13 @@
                         android:textColor="@color/common_google_signin_btn_text_dark_focused"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="406dp" />
+
+                    <TextView
+                        android:id="@+id/detalleMoneda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/moneda"
+                        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                     <TextView
                         android:id="@+id/textView30"
@@ -200,6 +197,7 @@
                                 android:text="@string/descripcion" />
                         </LinearLayout>
                     </ScrollView>
+
                 </LinearLayout>
 
                 <Button
@@ -219,7 +217,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout5"
-                android:layout_width="0dp"
+                android:layout_width="358dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -228,7 +226,7 @@
                 android:padding="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+                app:layout_constraintTop_toBottomOf="@+id/detalleRatingBar">
 
                 <Button
                     android:id="@+id/sitiosDeInteres"
@@ -240,7 +238,7 @@
                     tools:layout_editor_absoluteY="554dp" />
 
                 <Button
-                    android:id="@+id/reservar"
+                    android:id="@+id/detalleReservar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -250,15 +248,17 @@
             </LinearLayout>
 
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/detalleRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:max="5"
+                android:numStars="5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
