@@ -49,10 +49,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         TextView precio = (TextView) view.findViewById(R.id.infoPrecio);
         TextView descripion = (TextView) view.findViewById(R.id.infoDescripcion);
         foto = (ImageView) view.findViewById(R.id.infoimage);
-        Button boton = (Button) view.findViewById(R.id.infoBoton);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
-
-        tipo.setText(marker.getTitle());
 
         if(alojamiento!=null){
             tipo.setText(alojamiento.getTipo());
@@ -64,14 +61,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
             descargaryMostrarFoto(fotoAlojamiento.getRutaFoto());
 
-            boton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent activar = new Intent(view.getContext(),ConsultarAlojamientoDetalleActivity.class);
-                    activar.putExtra("alojamiento",alojamiento);
-                    contexto.startActivity(activar);
-                }
-            });
         }
 
 
