@@ -85,6 +85,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private Button buscar;
     private Button reservar;
+    private Button detalle;
 
     private double latitudBusqueda;
     private double longitudBusqueda;
@@ -218,7 +219,19 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
             }
         });
 
-
+        detalle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alojamientoSeleccionado!=null) {
+                    Intent intent = new Intent(ConsultarAlojamientoActivity.this, ConsultarAlojamientoDetalleActivity.class);
+                    intent.putExtra("alojamiento", alojamientoSeleccionado);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(view.getContext(), "Debe seleccionar un alojamiento.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         salir.setOnClickListener(new View.OnClickListener() {
             @Override

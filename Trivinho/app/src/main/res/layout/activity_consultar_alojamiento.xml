@@ -80,6 +80,7 @@
             </LinearLayout>
 
             <ListView
+                android:id="@+id/listComentarios"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -117,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/comentarios"
                 android:textAlignment="textStart"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -147,7 +149,7 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/detalleTipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tipo_alojamiento"
@@ -156,7 +158,7 @@
                         tools:layout_editor_absoluteY="324dp" />
 
                     <TextView
-                        android:id="@+id/textView27"
+                        android:id="@+id/detalleUbicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/ubicacion"
@@ -165,7 +167,7 @@
                         tools:layout_editor_absoluteY="365dp" />
 
                     <TextView
-                        android:id="@+id/textView28"
+                        android:id="@+id/detalleValor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/valor_noche"
@@ -181,6 +183,23 @@
                         android:textColor="@color/common_google_signin_btn_text_dark_focused"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="447dp" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/detalleDescripcion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/descripcion" />
+                        </LinearLayout>
+                    </ScrollView>
                 </LinearLayout>
 
                 <Button
