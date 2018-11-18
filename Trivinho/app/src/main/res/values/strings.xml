@@ -19,4 +19,5 @@
     <string name="reservar">Reservar</string>
     <string name="ver_perfil">Ver Perfil</string>
     <string name="comentarios">Comentarios</string>
+    <string name="filtrar_busqueda">Filtrar Busqueda</string>
 </resources>
