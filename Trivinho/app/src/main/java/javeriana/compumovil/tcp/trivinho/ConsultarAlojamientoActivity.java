@@ -215,14 +215,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
             }
         });
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (marker.getTag()!= null)
-                 alojamientoSeleccionado = (Alojamiento) marker.getTag();
-                return true;
-            }
-        });
+
 
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,6 +247,20 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                marker.showInfoWindow();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                if (marker.getTag()!= null)
+                    alojamientoSeleccionado = (Alojamiento) marker.getTag();
+                else{
+                    alojamientoSeleccionado = null;
+                }
+                return true;
+            }
+        });
 
     }
 
