@@ -12,6 +12,10 @@ public class Reserva implements Serializable {
     private int mesFinal;
     private int anioFinal;
 
+    private String alojamiento;
+    private String huesped;
+
+
 
 
     public int getDiaInicio() {
@@ -62,4 +66,19 @@ public class Reserva implements Serializable {
         this.anioFinal = anioFinal;
     }
 
+    public String getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(String alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
+    public String getHuesped() {
+        return huesped;
+    }
+
+    public void setHuesped(String huesped) {
+        this.huesped = huesped;
+    }
 }

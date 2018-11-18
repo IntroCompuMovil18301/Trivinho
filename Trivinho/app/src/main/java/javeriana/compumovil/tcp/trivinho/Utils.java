@@ -9,7 +9,7 @@ public class Utils {
     private static String PATH_FECHAS = "fechasdisponibles/";
     private static String PATH_ALOJAMIENTOS = "alojamientos/";
     private static String PATH_FOTOSALOJAMIENTO = "fotosalojamientos/";
-    private static String PATH_RESERVAS = "fotosalojamientos/";
+    private static String PATH_RESERVAS = "reservas/";
 
 
     public static boolean isEmailValid(String email) {
