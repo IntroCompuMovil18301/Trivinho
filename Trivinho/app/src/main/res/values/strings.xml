@@ -23,4 +23,5 @@
     <string name="agregar_sitios_interes">Agregar Sitios de Interes</string>
     <string name="tipo_sitio_interes">Tipo Sitio de Interes</string>
     <string name="historial_reservas">Historial de Reservas</string>
+    <string name="propietario">Propietario</string>
 </resources>
