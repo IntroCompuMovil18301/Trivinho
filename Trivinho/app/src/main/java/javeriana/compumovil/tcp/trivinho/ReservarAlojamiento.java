@@ -268,13 +268,14 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
 
         String url="https://maps.googleapis.com/maps/api/directions/json?origin="+String.valueOf(latitudInicial)+
                 ","+String.valueOf(longitudInicial)+"&destination="+String.valueOf(latitudFinal)+","+
-                String.valueOf(longitudFinal)+"&key=AIzaSyCU64UC6DO5Ph9fm0Ldif8pA5MaeyhGq7Y";
+                String.valueOf(longitudFinal)+"&key=AIzaSyAqYCyHsdafKZuGtUus62G1JqV3wb8DHTw";
 
         Log.i("ruta:", "peticion enviada");
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 //Este método PARSEA el JSONObject que retorna del API de Rutas de Google devolviendo
                 //una lista del lista de HashMap Strings con el listado de Coordenadas de Lat y Long,
                 //con la cual se podrá dibujar pollinas que describan la ruta entre 2 puntos.
@@ -313,6 +314,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                             routes.add(path);
                         }
                         dibujarRuta();
+                        Log.i("ruta: ", "peticion respondida");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -399,7 +401,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
             // Agregamos todos los puntos en la ruta al objeto LineOptions
             lineOptions.addAll(points);
             //Definimos el grosor de las Polilíneas
-            lineOptions.width(2);
+            lineOptions.width(9);
             //Definimos el color de la Polilíneas
             lineOptions.color(Color.GREEN);
 
