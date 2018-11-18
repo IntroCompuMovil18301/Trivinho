@@ -455,27 +455,15 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 for (final DataSnapshot singleSnapshotAlojamiento : dataSnapshotAlojamiento.getChildren()) {
                     final Alojamiento alojamiento = singleSnapshotAlojamiento.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
-                        myRef2 = database.getReference(Utils.getPathFechas()+singleSnapshotAlojamiento.getKey());
-                        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshotFechaDisp) {
-                                for (DataSnapshot singleSnapshotFechaDisp : dataSnapshotFechaDisp.getChildren()) {
-                                    FechaDisponible fechaDisponible = singleSnapshotFechaDisp.getValue(FechaDisponible.class);
-                                        if (alojamientoDisponible(fechaDisponible)){
-                                            alojamiento.setId(singleSnapshotAlojamiento.getKey());
-                                            colocarAlojamiento(alojamiento);
-                                        }
+                            for (FechaDisponible fechaDisponible : alojamiento.getFechasDisponibles()) {
+                                if (alojamientoDisponible(fechaDisponible)) {
+                                    alojamiento.setId(singleSnapshotAlojamiento.getKey());
+                                    colocarAlojamiento(alojamiento);
                                 }
                             }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.w("Error", "error en la consulta", databaseError.toException());
-                            }
-                        });
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("ErrorDB", "error en la consulta", databaseError.toException());

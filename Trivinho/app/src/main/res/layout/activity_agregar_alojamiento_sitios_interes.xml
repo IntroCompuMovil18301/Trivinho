@@ -6,59 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ReservarAlojamiento">
 
-    <LinearLayout
-        android:id="@+id/linearLayout8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView35">
-
-        <EditText
-            android:id="@+id/fechaInicio3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:editable="false"
-            android:ems="10"
-            android:hint="@string/fecha_inicio"
-            android:inputType="none"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/fechaFinal3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="3dp"
-            android:layout_weight="1"
-            android:editable="false"
-            android:ems="10"
-            android:hint="@string/fecha_final"
-            android:inputType="none"
-            android:textSize="14sp" />
-    </LinearLayout>
-
     <fragment
         android:id="@+id/mapp3"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="304dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/agregarsitio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -111,7 +70,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:text="@string/reservar_alojamiento"
         android:textAlignment="center"
@@ -119,19 +78,42 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
     <Button
         android:id="@+id/agregarsitio"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="72dp"
         android:text="@string/reservar_alojamiento"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mapp3"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="151dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/agregarsitio"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapp3" />
+
+    <EditText
+        android:id="@+id/descripcionsi"
+        android:layout_width="151dp"
+        android:layout_height="73dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="488dp" />
 
 </android.support.constraint.ConstraintLayout>

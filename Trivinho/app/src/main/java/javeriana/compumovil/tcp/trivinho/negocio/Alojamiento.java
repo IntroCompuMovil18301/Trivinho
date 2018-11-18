@@ -107,4 +107,6 @@ public class Alojamiento implements Serializable {
     public void setFotos(List<FotoAlojamiento> fotos) {
         this.fotos = fotos;
     }
+
+
 }

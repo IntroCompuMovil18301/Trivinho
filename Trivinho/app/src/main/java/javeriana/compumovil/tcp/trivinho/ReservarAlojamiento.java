@@ -119,7 +119,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
 
-        reservar = (Button) findViewById(R.id.reservar3);
+        reservar = (Button) findViewById(R.id.agregarsitio);
 
         request= Volley.newRequestQueue(getApplicationContext());
 
@@ -183,59 +183,42 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     }
 
     private void reservaDisponible (){
-        myRef = database.getReference(Utils.getPathFechas()+alojamiento.getId());
-        Log.i("ENTREEEEEEE", alojamiento.getId());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshotFechaDisp) {
-                for (DataSnapshot singleSnapshotFechaDisp : dataSnapshotFechaDisp.getChildren()) {
-                    FechaDisponible fechaDisponible = singleSnapshotFechaDisp.getValue(FechaDisponible.class);
-                    if (alojamientoDisponible(fechaDisponible)){
-                        myRef2 = database.getReference(Utils.getPathReservas()+alojamiento.getId());
-                        String key = myRef.push().getKey();
-                        myRef2 = database.getReference(Utils.getPathReservas()+alojamiento.getId()+key);
-                        try {
-                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        for (FechaDisponible fechaDisponible: alojamiento.getFechasDisponibles()) {
+            if (alojamientoDisponible(fechaDisponible)) {
+                myRef2 = database.getReference(Utils.getPathReservas() + alojamiento.getId());
+                String key = myRef.push().getKey();
+                myRef2 = database.getReference(Utils.getPathReservas() + alojamiento.getId() + key);
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-                            String fechaInicio = mfechaInicio.getText().toString();
-                            String fechaFinal = mfechaFinal.getText().toString();
+                    String fechaInicio = mfechaInicio.getText().toString();
+                    String fechaFinal = mfechaFinal.getText().toString();
 
-                            Calendar inicio_date = Calendar.getInstance();
-                            Calendar final_date = Calendar.getInstance();
-                            inicio_date.setTime(format.parse(fechaInicio));
-                            final_date.setTime(format.parse(fechaFinal));
+                    Calendar inicio_date = Calendar.getInstance();
+                    Calendar final_date = Calendar.getInstance();
+                    inicio_date.setTime(format.parse(fechaInicio));
+                    final_date.setTime(format.parse(fechaFinal));
 
-                            Reserva reserva= new Reserva();
-                            reserva.setAnioInicio(inicio_date.get(Calendar.YEAR));
-                            reserva.setMesInicio(inicio_date.get(Calendar.MONTH)+1);
-                            reserva.setDiaInicio(inicio_date.get(Calendar.DAY_OF_MONTH));
+                    Reserva reserva = new Reserva();
+                    reserva.setAnioInicio(inicio_date.get(Calendar.YEAR));
+                    reserva.setMesInicio(inicio_date.get(Calendar.MONTH) + 1);
+                    reserva.setDiaInicio(inicio_date.get(Calendar.DAY_OF_MONTH));
 
 
-                            reserva.setAnioFinal(final_date.get(Calendar.YEAR));
-                            reserva.setMesFinal(final_date.get(Calendar.MONTH)+1);
-                            reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
-                            myRef2.setValue(reserva);
+                    reserva.setAnioFinal(final_date.get(Calendar.YEAR));
+                    reserva.setMesFinal(final_date.get(Calendar.MONTH) + 1);
+                    reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
+                    myRef2.setValue(reserva);
 
-                            Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
-                            startActivity(intent);
-
-                            Log.i("RETORNO VERDADERO", "VERDADERO");
-                            return;
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
+                    startActivity(intent);
                 }
-                Toast.makeText(ReservarAlojamiento.this, "No se puede reservar para estas fechas.", Toast.LENGTH_LONG).show();
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("Error", "error en la consulta", databaseError.toException());
-            }
-        });
-
+        }
     }
 
     public void onMapReady(GoogleMap googleMap) {

@@ -56,6 +56,8 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
     private Alojamiento alojamiento;
 
     private List<FechaDisponible> fechasDisponibles;
+    private List<FotoAlojamiento> fotos;
+    private List<byte[]> fotosB;
     private StorageReference mStorageRef;
 
     private MCalendarView calendarView;
@@ -87,6 +89,10 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         fechasDisponibles = new ArrayList<FechaDisponible>();
+        fotos = new ArrayList<FotoAlojamiento>();
+
+        fotosB = (ArrayList) ((ArrayList)ImageAdapter.getImagenes()).clone();
+        ImageAdapter.limpiarImagenes();
 
         inicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,32 +150,15 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
         if (comprobarNumFechas()){
             int i=0;
 
-
             myRef = database.getReference(Utils.getPathAlojamientos());
             String key = myRef.push().getKey();
             myRef = database.getReference(Utils.getPathAlojamientos()+key);
-            myRef.setValue(alojamiento);
 
-
-            List<byte[]> fotos = (ArrayList) ((ArrayList)ImageAdapter.getImagenes()).clone();
-            ImageAdapter.limpiarImagenes();
-            for (byte[] foto: fotos){
+            alojamiento.setFechasDisponibles(fechasDisponibles);
+            for (byte[] foto: fotosB){
                 uploadImage(key, i, foto);
                 i++;
             }
-
-            int numeroFecha=0;
-            for (FechaDisponible fechaDisponible: fechasDisponibles){
-                myRef = database.getReference(Utils.getPathFechas()+key+"/"+String.valueOf(numeroFecha));
-                myRef.setValue(fechaDisponible);
-                numeroFecha++;
-            }
-
-
-            Toast.makeText(this, "Alojamiento agregado con éxito.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, UsuarioMainActivity.class);
-            startActivity(intent);
-
         }
     }
 
@@ -188,7 +177,7 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
-                        guardarImagenBD(rutafotoFireBase, IDalojamiento_, numeroFoto_);
+                        guardarImagenBD(rutafotoFireBase, IDalojamiento_);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -201,12 +190,18 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
     }
 
 
-    private void guardarImagenBD (String ruta, String IDalojamiento, int numeroFoto){
-        myRef = database.getReference(Utils.getPathFotosalojamiento());
+    private void guardarImagenBD (String ruta, String IDalojamiento){
         FotoAlojamiento fotoAlojamiento= new FotoAlojamiento();
         fotoAlojamiento.setRutaFoto(ruta);
-        myRef = database.getReference(Utils.getPathFotosalojamiento()+IDalojamiento+"/"+String.valueOf(numeroFoto));
-        myRef.setValue(fotoAlojamiento);
+        fotos.add(fotoAlojamiento);
+
+        if (fotosB.size() == fotos.size()){//significa que ya se subieron todas las fotos
+            alojamiento.setFotos(fotos);
+            myRef.setValue(alojamiento);
+            Toast.makeText(this, "Alojamiento agregado con éxito.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, UsuarioMainActivity.class);
+            startActivity(intent);
+        }
     }
 
 
