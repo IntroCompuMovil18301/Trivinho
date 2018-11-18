@@ -6,13 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ReservarAlojamiento">
 
+    <Button
+        android:id="@+id/siguiente5"
+        android:layout_width="133dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="7dp"
+        android:text="Siguiente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agregarsitio"
+        app:layout_constraintVertical_bias="0.03" />
+
     <fragment
-        android:id="@+id/mapp3"
+        android:id="@+id/mapp4"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="304dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,9 +83,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/reservar_alojamiento"
+        android:text="Agregar sitios de interés"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
@@ -86,34 +99,38 @@
         android:id="@+id/agregarsitio"
         android:layout_width="wrap_content"
         android:layout_height="53dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="72dp"
-        android:text="@string/reservar_alojamiento"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="agregar sitio de interes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapp3"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toBottomOf="@+id/mapp4" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/tiposi"
         android:layout_width="151dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:entries="@array/tipo_sitio"
         app:layout_constraintEnd_toStartOf="@+id/agregarsitio"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapp3" />
+        app:layout_constraintTop_toBottomOf="@+id/mapp4" />
 
     <EditText
         android:id="@+id/descripcionsi"
-        android:layout_width="151dp"
+        android:layout_width="148dp"
         android:layout_height="73dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
+        android:hint="Descripción"
         android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="488dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiposi"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

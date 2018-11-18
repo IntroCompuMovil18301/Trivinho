@@ -178,11 +178,13 @@ public class AgregarAlojamientoUbicacionActivity extends FragmentActivity implem
     }
 
     private void agregarUbicacion (){
-        Intent intent = new Intent (this, AgregarAlojamientoFechasActivity.class);
+        //Intent intent = new Intent (this, AgregarAlojamientoFechasActivity.class);
+        Intent intent = new Intent (this, AgregarAlojamientoSitiosInteresActivity.class);
         Alojamiento alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
         alojamiento.setLatitud (latitudAlojamiento);
         alojamiento.setLongitud(longitudAlojamiento);
         intent.putExtra("alojamiento", alojamiento);
+
         startActivity(intent);
     }
 

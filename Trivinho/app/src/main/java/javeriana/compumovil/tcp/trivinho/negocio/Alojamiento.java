@@ -19,6 +19,7 @@ public class Alojamiento implements Serializable {
 
     private List<FechaDisponible> fechasDisponibles;
     private List<FotoAlojamiento> fotos;
+    private List<SitioDeInteres> sitiosDeInteres;
 
     private int numeroReservas;
 
@@ -27,6 +28,7 @@ public class Alojamiento implements Serializable {
     public Alojamiento() {
         fechasDisponibles = new ArrayList<FechaDisponible>();
         fotos = new ArrayList<FotoAlojamiento>();
+        sitiosDeInteres = new ArrayList<SitioDeInteres>();
         puntaje=0;
         numeroReservas = 0;
     }
@@ -119,5 +121,11 @@ public class Alojamiento implements Serializable {
         this.numeroReservas = numeroReservas;
     }
 
+    public List<SitioDeInteres> getSitiosDeInteres() {
+        return sitiosDeInteres;
+    }
 
+    public void setSitiosDeInteres(List<SitioDeInteres> sitiosDeInteres) {
+        this.sitiosDeInteres = sitiosDeInteres;
+    }
 }

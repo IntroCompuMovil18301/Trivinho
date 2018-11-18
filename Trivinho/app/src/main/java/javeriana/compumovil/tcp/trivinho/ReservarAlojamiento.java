@@ -69,7 +69,6 @@ import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
 import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
-import javeriana.compumovil.tcp.trivinho.negocio.Huesped;
 import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 
 public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyCallback  {
@@ -112,7 +111,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         setContentView(R.layout.activity_reservar_alojamiento);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapp3);
+                .findFragmentById(R.id.mapp4);
         mapFragment.getMapAsync(this);
 
         database= FirebaseDatabase.getInstance();

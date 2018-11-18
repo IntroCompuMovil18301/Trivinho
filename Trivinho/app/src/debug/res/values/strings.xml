@@ -298,4 +298,18 @@
     <string name="title_activity_maps">Map</string>
     <string name="ubicacion">Ubicación</string>
     <string name="seleccionar_alojamiento">SELECCIONAR ALOJAMIENTO</string>
+
+    <string-array name="tipo_sitio">
+        <item>Gimnasio</item>
+        <item>Lavanderia</item>
+        <item>Transporte</item>
+        <item>Restaurante</item>
+        <item>Cajero</item>
+        <item>Cafe</item>
+        <item>Farmacia</item>
+        <item>Supermercado</item>
+        <item>Centro comercial</item>
+        <item>Aeropuerto</item>
+        <item>Otros</item>
+    </string-array>
 </resources>
