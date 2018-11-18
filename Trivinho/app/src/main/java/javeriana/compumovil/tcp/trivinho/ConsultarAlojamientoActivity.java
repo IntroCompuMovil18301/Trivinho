@@ -114,7 +114,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
-        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(this.getBaseContext())));
+
 
         salir = (Button) findViewById(R.id.salir7);
         inicio = (Button) findViewById(R.id.button5);
@@ -249,10 +249,12 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(ConsultarAlojamientoActivity.this));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
                 marker.showInfoWindow();
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
                 if (marker.getTag()!= null)
@@ -551,8 +553,8 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private void colocarAlojamiento (Alojamiento alojamiento){
         LatLng ubicacion = new LatLng(alojamiento.getLatitud(), alojamiento.getLongitud());
-        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title("Alojamiento")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)));
+        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title(alojamiento.getTipo())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)).snippet(alojamiento.getDescripcion()));
         amarker.setTag(alojamiento);
     }
 
