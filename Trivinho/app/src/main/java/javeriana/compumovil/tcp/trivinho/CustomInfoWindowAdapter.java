@@ -52,23 +52,26 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         Button boton = (Button) view.findViewById(R.id.infoBoton);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
 
-        tipo.setText(alojamiento.getTipo());
-        moneda.setText(alojamiento.getTipoMoneda());
-        precio.setText(Double.toString(alojamiento.getValorPorNoche()));
-        descripion.setText(alojamiento.getDescripcion());
-        rating.setRating(alojamiento.getPuntaje());
-        FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
+        if(alojamiento!=null){
+            tipo.setText(alojamiento.getTipo());
+            moneda.setText(alojamiento.getTipoMoneda());
+            precio.setText(Double.toString(alojamiento.getValorPorNoche()));
+            descripion.setText(alojamiento.getDescripcion());
+            rating.setRating(alojamiento.getPuntaje());
+            FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
 
-        descargaryMostrarFoto(fotoAlojamiento.getRutaFoto());
+            descargaryMostrarFoto(fotoAlojamiento.getRutaFoto());
 
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent activar = new Intent(view.getContext(),ConsultarAlojamientoDetalleActivity.class);
-                activar.putExtra("alojamiento",alojamiento);
-                contexto.startActivity(activar);
-            }
-        });
+            boton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent activar = new Intent(view.getContext(),ConsultarAlojamientoDetalleActivity.class);
+                    activar.putExtra("alojamiento",alojamiento);
+                    contexto.startActivity(activar);
+                }
+            });
+        }
+
 
 
     }
