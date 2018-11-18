@@ -122,68 +122,56 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
             descripcionSitio.setText("");
 
             if (tipoSitio.getSelectedItem().toString().equals("Gimnasio")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Farmacia").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Gimnasio").draggable(true)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorgimnasio))));
                 sitioDeInteres.setTipo("Gimnasio");
-            }
-
-            if (tipoSitio.getSelectedItem().toString().equals("Lavanderia")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Lavanderia").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
-                sitioDeInteres.setTipo("Lavanderia");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Transporte")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Transporte").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortransporte))));
                 sitioDeInteres.setTipo("Transporte");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Restaurante")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Restaurante").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorrestaurante))));
                 sitioDeInteres.setTipo("Restaurante");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Cajero")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Cajero").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadordinero))));
                 sitioDeInteres.setTipo("Cajero");
-            }
-
-            if (tipoSitio.getSelectedItem().toString().equals("Cafe")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Cafe").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
-                sitioDeInteres.setTipo("Cafe");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Farmacia")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Farmacia").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorenfermeria))));
                 sitioDeInteres.setTipo("Farmacia");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Supermercado")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Supermercado").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadormercado))));
                 sitioDeInteres.setTipo("Supermercado");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Centro comercial")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Centro comercial").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortienda))));
                 sitioDeInteres.setTipo("Centro comercial");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Aeropuerto")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Aeropuerto").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadoraeropuerto))));
                 sitioDeInteres.setTipo("Aeropuerto");
             }
 
             if (tipoSitio.getSelectedItem().toString().equals("Otros")) {
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Otros").draggable(true)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa))));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorotros))));
                 sitioDeInteres.setTipo("Otros");
             }
 
