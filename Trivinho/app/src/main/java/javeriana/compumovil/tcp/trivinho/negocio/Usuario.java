@@ -1,6 +1,8 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private String email;
     private String nombres;
     private String apellidos;

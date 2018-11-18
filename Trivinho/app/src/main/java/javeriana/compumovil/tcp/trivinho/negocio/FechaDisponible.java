@@ -1,6 +1,8 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
-public class FechaDisponible {
+import java.io.Serializable;
+
+public class FechaDisponible implements Serializable {
 
     private int diaInicio;
     private int mesInicio;

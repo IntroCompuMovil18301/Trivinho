@@ -1,6 +1,8 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
-public class Reserva {
+import java.io.Serializable;
+
+public class Reserva implements Serializable {
 
     private int diaInicio;
     private int mesInicio;

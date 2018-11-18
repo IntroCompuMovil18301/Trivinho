@@ -1,6 +1,8 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
-public class FotoAlojamiento {
+import java.io.Serializable;
+
+public class FotoAlojamiento implements Serializable {
     private String rutaFoto;
 
     public String getRutaFoto() {
