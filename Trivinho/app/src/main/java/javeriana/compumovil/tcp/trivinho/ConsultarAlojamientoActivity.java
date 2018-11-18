@@ -541,7 +541,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private void colocarAlojamiento (Alojamiento alojamiento){
         LatLng ubicacion = new LatLng(alojamiento.getLatitud(), alojamiento.getLongitud());
-        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title("Hola")
+        Marker amarker = mMap.addMarker(new MarkerOptions().position(ubicacion).title(alojamiento.getTipo())
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)));
         amarker.setTag(alojamiento);
     }
