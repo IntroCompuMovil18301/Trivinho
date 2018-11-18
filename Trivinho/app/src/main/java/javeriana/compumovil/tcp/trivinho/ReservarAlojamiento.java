@@ -335,7 +335,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private void ubicarMapaPosicion(double latitud, double longitud) {
         LatLng ubicacion = new LatLng(latitud, longitud);
         mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title("Ubicación central")
+        mMap.addMarker(new MarkerOptions().position(ubicacion).title("Ubicación actual")
                 .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(14));

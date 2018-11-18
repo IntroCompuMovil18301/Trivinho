@@ -405,9 +405,6 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
     private void ubicarMapaPosicion(double latitud, double longitud) {
         LatLng ubicacion = new LatLng(latitud, longitud);
         mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title("Ubicación central")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
         latitudBusqueda = latitud;
