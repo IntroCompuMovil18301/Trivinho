@@ -16,14 +16,9 @@ public class Alojamiento implements Serializable {
     private double latitud;
     private double longitud;
 
-    private List<FechaDisponible> fechasDisponibles;
-    private List<FotoAlojamiento> fotos;
-
 
 
     public Alojamiento() {
-        fechasDisponibles = new ArrayList<FechaDisponible>();
-        fotos = new ArrayList<FotoAlojamiento>();
     }
 
     public String getTipo() {
@@ -80,21 +75,5 @@ public class Alojamiento implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public List<FechaDisponible> getFechasDisponibles() {
-        return fechasDisponibles;
-    }
-
-    public void setFechasDisponibles(List<FechaDisponible> fechasDisponibles) {
-        this.fechasDisponibles = fechasDisponibles;
-    }
-
-    public List<FotoAlojamiento> getFotos() {
-        return fotos;
-    }
-
-    public void setFotos(List<FotoAlojamiento> fotos) {
-        this.fotos = fotos;
     }
 }

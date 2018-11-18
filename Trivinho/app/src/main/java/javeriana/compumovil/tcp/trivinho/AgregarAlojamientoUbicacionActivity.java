@@ -129,6 +129,7 @@ public class AgregarAlojamientoUbicacionActivity extends FragmentActivity implem
                         ubicacionInicialColocada = true;
                     }
 
+
                 }
             }
         };
