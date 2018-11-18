@@ -29,7 +29,7 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_alojamiento);
         versitiosInteres=(Button) findViewById(R.id.sitiosDeInteres);
-        reservar=(Button) findViewById(R.id.reservar);
+        reservar=(Button) findViewById(R.id.detalleReservar);
         tipo = (TextView) findViewById(R.id.detalleTipo);
         descripcion = (TextView) findViewById(R.id.detalleDescripcion);
         moneda = (TextView) findViewById(R.id.detalleMoneda) ;
@@ -61,5 +61,6 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
                 startActivity(activar);
             }
         });
+
     }
 }

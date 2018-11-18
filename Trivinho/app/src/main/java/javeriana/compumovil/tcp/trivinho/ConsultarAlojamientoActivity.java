@@ -135,6 +135,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
         buscar = (Button) findViewById(R.id.buscar2);
         reservar = (Button) findViewById(R.id.reservar);
+        detalle = (Button) findViewById(R.id.detalle);
 
         mAddress = (EditText) findViewById(R.id.ubicacion2);
         mGeocoder = new Geocoder(getBaseContext());
