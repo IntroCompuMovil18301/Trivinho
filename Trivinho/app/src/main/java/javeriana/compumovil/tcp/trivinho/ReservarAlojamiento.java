@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -96,6 +97,8 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
 
+        request= Volley.newRequestQueue(getApplicationContext());
+
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
         mLocationCallback = new LocationCallback() {
@@ -111,9 +114,8 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                     if (!ubicacionInicialColocada && mMap!=null) {
                         webServiceObtenerRuta(latitudActual, longitudActual, alojamiento.getLatitud(), alojamiento.getLongitud());
                         ubicarMapaPosicion(latitudActual, longitudActual);
-                        ubicacionInicialColocada = true;
                         colocarAlojamiento(alojamiento);
-
+                        ubicacionInicialColocada = true;
                     }
 
                 }
@@ -268,6 +270,8 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                 ","+String.valueOf(longitudInicial)+"&destination="+String.valueOf(latitudFinal)+","+
                 String.valueOf(longitudFinal)+"&key=AIzaSyCU64UC6DO5Ph9fm0Ldif8pA5MaeyhGq7Y";
 
+        Log.i("ruta:", "peticion enviada");
+
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -284,6 +288,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
 
                     /** Traversing all routes */
                     for(int i=0;i<jRoutes.length();i++){
+
                         jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
                         List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
 
@@ -397,8 +402,9 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
             lineOptions.width(2);
             //Definimos el color de la Polilíneas
             lineOptions.color(Color.GREEN);
-        }
 
+            mMap.addPolyline(lineOptions);
+        }
     }
 
     private void colocarAlojamiento (Alojamiento alojamiento){
