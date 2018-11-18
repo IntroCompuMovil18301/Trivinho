@@ -61,7 +61,7 @@ public class AgregarAlojamientoUbicacionActivity extends FragmentActivity implem
 
 
 
-    private static boolean ubicacionInicialColocada = false;
+    private boolean ubicacionInicialColocada = false;
 
 
     private double latitudActual;

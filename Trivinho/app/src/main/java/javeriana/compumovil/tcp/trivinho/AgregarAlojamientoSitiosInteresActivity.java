@@ -2,8 +2,8 @@ package javeriana.compumovil.tcp.trivinho;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,11 +44,7 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_alojamiento_sitios_interes);
 
-        agregarSitio = (Button) findViewById(R.id.agregarsitio);
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
-        tipoSitio = (Spinner) findViewById(R.id.tiposi);
-        descripcionSitio = (EditText) findViewById(R.id.descripcionsi);
-        siguiente = (Button) findViewById(R.id.siguiente5);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapp4);
@@ -57,7 +53,11 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
         sitiosDeInteres = new ArrayList<SitioDeInteres>();
         sitios = new ArrayList<Marker>();
 
+        agregarSitio = (Button) findViewById(R.id.agregarsitio);
 
+        tipoSitio = (Spinner) findViewById(R.id.tiposi);
+        descripcionSitio = (EditText) findViewById(R.id.descripcionsi);
+        siguiente = (Button) findViewById(R.id.siguiente6);
 
 
 
@@ -78,7 +78,9 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
     }
 
     private void guardarSitiosDeInteres(){
-        if(verificarSitios()){
+        boolean valido =  verificarSitios();
+        Log.i("VALIDO:", String.valueOf(valido));
+        if( verificarSitios()){
             for (Marker marker: sitios){
                 SitioDeInteres sitioDeInteres = (SitioDeInteres) marker.getTag();
                 sitioDeInteres.setLatitud(marker.getPosition().latitude);
@@ -99,8 +101,22 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
         mMap.getUiSettings().setCompassEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                                         @Override
+                                         public void onMarkerDragStart(Marker marker) {
 
-        ubicarMapaPosicion (alojamiento.getLatitud(), alojamiento.getLongitud());
+                                         }
+
+                                         @Override
+                                         public void onMarkerDrag(Marker marker) {
+
+                                         }
+
+                                         @Override
+                                         public void onMarkerDragEnd(Marker marker) {
+                                         }});
+
+                ubicarMapaPosicion(alojamiento.getLatitud(), alojamiento.getLongitud());
     }
 
     private void ubicarMapaPosicion (double latitud, double longitud){
@@ -108,7 +124,7 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(ubicacion).title("Alojamiento")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorcasa)));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
     }
 
@@ -174,24 +190,24 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorotros))));
                 sitioDeInteres.setTipo("Otros");
             }
-
-
             sitios.get(sitios.size() - 1).setTag(sitioDeInteres);
         }
         else{
-            Toast.makeText(this, "Puede agregar máximo 8 sitios de interés.", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Puede agregar máximo 8 sitios de interés.", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
-    private Boolean verificarSitios(){
+    private boolean verificarSitios(){
         for (Marker marker: sitios){
+            Log.i("POSICION", String.valueOf(marker.getPosition().latitude));
             if (marker.getPosition().latitude == alojamiento.getLatitud() && marker.getPosition().longitude == alojamiento.getLongitud()){
-                Toast.makeText(this, "No pueden haber sitios de interés sobre el alojamiento.", Toast.LENGTH_SHORT);
+                Toast.makeText(AgregarAlojamientoSitiosInteresActivity.this, "No pueden haber sitios de interés sobre el alojamiento.", Toast.LENGTH_LONG).show();
                 return false;
             }
         }
+        Log.i("LLAMADO", "SI");
         return true;
     }
 

@@ -1,6 +1,8 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
-public class SitioDeInteres {
+import java.io.Serializable;
+
+public class SitioDeInteres implements Serializable {
     private String tipo;
     private String descripcion;
     private double latitud;

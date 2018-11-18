@@ -75,7 +75,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
     private static final int ID_PERMISSION_LOCATION = 1;
     private static final int REQUEST_CHECK_SETTINGS = 1;
 
-    private static boolean ubicacionInicialColocada = false;
+    private boolean ubicacionInicialColocada = false;
 
     public static final int RADIUS_OF_EARTH_KM = 6371;
 

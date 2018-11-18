@@ -117,10 +117,10 @@ public class AgregarAlojamientoFotosActivity extends AppCompatActivity {
     }
 
     private boolean validarNumFotos(){
-        if (imageAdapter.getNumImagenes() < 4){
+        /*if (imageAdapter.getNumImagenes() < 4){
             Toast.makeText(this, "Deben ser al menos 4 imágenes.", Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
         return true;
     }
 
