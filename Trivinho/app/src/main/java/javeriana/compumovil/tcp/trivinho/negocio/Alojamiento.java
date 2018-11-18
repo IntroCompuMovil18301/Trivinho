@@ -20,12 +20,15 @@ public class Alojamiento implements Serializable {
     private List<FechaDisponible> fechasDisponibles;
     private List<FotoAlojamiento> fotos;
 
+    private int numeroReservas;
+
 
 
     public Alojamiento() {
         fechasDisponibles = new ArrayList<FechaDisponible>();
         fotos = new ArrayList<FotoAlojamiento>();
         puntaje=0;
+        numeroReservas = 0;
     }
 
     public float getPuntaje() {
@@ -106,6 +109,14 @@ public class Alojamiento implements Serializable {
 
     public void setFotos(List<FotoAlojamiento> fotos) {
         this.fotos = fotos;
+    }
+
+    public int getNumeroReservas() {
+        return numeroReservas;
+    }
+
+    public void setNumeroReservas(int numeroReservas) {
+        this.numeroReservas = numeroReservas;
     }
 
 

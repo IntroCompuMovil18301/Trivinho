@@ -48,6 +48,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +69,7 @@ import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
 import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
+import javeriana.compumovil.tcp.trivinho.negocio.Huesped;
 import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 
 public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyCallback  {
@@ -75,6 +78,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private EditText mfechaFinal;
 
     private Boolean disponible;
+    private FirebaseAuth mAuth;
 
     public static List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>();
 
@@ -97,7 +101,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private RequestQueue request;
 
 
-
+    private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private DatabaseReference myRef2;
@@ -112,6 +116,8 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
 
         database= FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         mfechaInicio = (EditText) findViewById(R.id.fechaInicio3);
         mfechaFinal = (EditText) findViewById(R.id.fechaFinal3);
@@ -185,10 +191,10 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private void reservaDisponible (){
         for (FechaDisponible fechaDisponible: alojamiento.getFechasDisponibles()) {
             if (alojamientoDisponible(fechaDisponible)) {
-                myRef = database.getReference(Utils.getPathReservas() + alojamiento.getId());
-                String key = myRef.push().getKey();
-                myRef = database.getReference(Utils.getPathReservas() + alojamiento.getId() + key);
+
                 try {
+
+
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
                     String fechaInicio = mfechaInicio.getText().toString();
@@ -208,7 +214,10 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                     reserva.setAnioFinal(final_date.get(Calendar.YEAR));
                     reserva.setMesFinal(final_date.get(Calendar.MONTH) + 1);
                     reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
-                    myRef2.setValue(reserva);
+
+                    guardarReservaAlojamiento(reserva);
+                    guardarReservaHuesped(reserva);
+
 
                     Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
@@ -221,6 +230,39 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
             }
         }
         Toast.makeText(this, "El alojamiento no está disponible o está reservado en estas fechas.", Toast.LENGTH_LONG).show();
+    }
+
+    private void guardarReservaAlojamiento (Reserva reserva){
+        alojamiento.setNumeroReservas(alojamiento.getNumeroReservas()+1);
+        reserva.setHuesped(user.getUid());
+        myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento.getId() +"/" + "numeroReservas");
+        myRef.setValue(alojamiento.getNumeroReservas());
+        myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento.getId() + "/reservas/" + String.valueOf(alojamiento.getNumeroReservas()-1));
+        myRef.setValue(reserva);
+    }
+
+    private void guardarReservaHuesped (final Reserva reserva){
+        reserva.setHuesped(null);
+        reserva.setAlojamiento(alojamiento.getId());
+        myRef = database.getReference (Utils.getPathHuespedes() + user.getUid() + "/numeroReservas");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Log.i("RESERVA ENC", "1");
+                    int numeroReservas = dataSnapshot.getValue(Integer.class);
+                    numeroReservas++;
+                    myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() +"/" + "numeroReservas");
+                    myRef2.setValue(numeroReservas);
+                    myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(numeroReservas-1));
+                    myRef2.setValue(reserva);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("ERROR: ", "error en la consulta", databaseError.toException());
+            }
+        });
     }
 
     public void onMapReady(GoogleMap googleMap) {

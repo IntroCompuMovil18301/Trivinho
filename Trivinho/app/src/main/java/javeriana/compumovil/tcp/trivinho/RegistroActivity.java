@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javeriana.compumovil.tcp.trivinho.negocio.Huesped;
 import javeriana.compumovil.tcp.trivinho.negocio.Usuario;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -379,6 +380,9 @@ public class RegistroActivity extends AppCompatActivity {
 
         if (mEsHuesped.isChecked()) {
             usuario.setEsHuesped(true);
+            Huesped huesped = new Huesped();
+            myRef = database.getReference(Utils.getPathHuespedes()+user.getUid());
+            myRef.setValue(huesped);
         }
         else{
             usuario.setEsHuesped(false);
