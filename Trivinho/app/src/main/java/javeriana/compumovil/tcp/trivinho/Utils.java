@@ -9,6 +9,8 @@ public class Utils {
     private static String PATH_FECHAS = "fechasdisponibles/";
     private static String PATH_ALOJAMIENTOS = "alojamientos/";
     private static String PATH_FOTOSALOJAMIENTO = "fotosalojamientos/";
+    private static String PATH_RESERVAS = "fotosalojamientos/";
+
 
     public static boolean isEmailValid(String email) {
         boolean isValid = true;
@@ -39,5 +41,9 @@ public class Utils {
 
     public static String getPathFotosalojamiento() {
         return PATH_FOTOSALOJAMIENTO;
+    }
+
+    public static String getPathReservas() {
+        return PATH_RESERVAS;
     }
 }

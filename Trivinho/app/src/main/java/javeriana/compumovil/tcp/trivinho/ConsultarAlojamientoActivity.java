@@ -461,7 +461,6 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                                         if (alojamientoDisponible(fechaDisponible)){
                                             alojamiento.setId(singleSnapshotAlojamiento.getKey());
                                             colocarAlojamiento(alojamiento);
-
                                         }
                                 }
                             }

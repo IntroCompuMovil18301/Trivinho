@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -47,21 +48,33 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
+import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
+import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 
 public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyCallback  {
 
     private EditText mfechaInicio;
     private EditText mfechaFinal;
+
+    private Boolean disponible;
 
     public static List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>();
 
@@ -78,9 +91,13 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private static final int REQUEST_CHECK_SETTINGS = 1;
 
     private static boolean ubicacionInicialColocada = false;
+    private Button reservar;
 
-    JsonObjectRequest jsonObjectRequest;
-    RequestQueue request;
+    private JsonObjectRequest jsonObjectRequest;
+    private RequestQueue request;
+
+    private DatabaseReference myRef;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +108,15 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.mapp3);
         mapFragment.getMapAsync(this);
 
+        database= FirebaseDatabase.getInstance();
+
         mfechaInicio = (EditText) findViewById(R.id.fechaInicio3);
         mfechaFinal = (EditText) findViewById(R.id.fechaFinal3);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
+
+        reservar = (Button) findViewById(R.id.reservar3);
 
         request= Volley.newRequestQueue(getApplicationContext());
 
@@ -117,7 +138,6 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                         colocarAlojamiento(alojamiento);
                         ubicacionInicialColocada = true;
                     }
-
                 }
             }
         };
@@ -141,8 +161,77 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
             }
         });
 
+        reservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                completarReserva();
+            }
+        });
 
 
+
+    }
+
+    private void completarReserva (){
+        if (validarCampos()){
+            if (reservaDisponible()){
+                myRef = database.getReference(Utils.getPathReservas()+alojamiento.getId());
+                String key = myRef.push().getKey();
+                myRef = database.getReference(Utils.getPathAlojamientos()+alojamiento.getId()+key);
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+                    String fechaInicio = mfechaInicio.getText().toString();
+                    String fechaFinal = mfechaFinal.getText().toString();
+
+                    Calendar inicio_date = Calendar.getInstance();
+                    Calendar final_date = Calendar.getInstance();
+                    inicio_date.setTime(format.parse(fechaInicio));
+                    final_date.setTime(format.parse(fechaFinal));
+
+                    Reserva reserva= new Reserva();
+                    reserva.setAnioInicio(inicio_date.get(Calendar.YEAR));
+                    reserva.setMesInicio(inicio_date.get(Calendar.MONTH)+1);
+                    reserva.setDiaInicio(inicio_date.get(Calendar.DAY_OF_MONTH));
+
+
+                    reserva.setAnioFinal(final_date.get(Calendar.YEAR));
+                    reserva.setMesFinal(final_date.get(Calendar.MONTH)+1);
+                    reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
+                    myRef.setValue(reserva);
+                    
+                    Toast.makeText(this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, UsuarioMainActivity.class);
+                    startActivity(intent);
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }
+    }
+
+    private Boolean reservaDisponible (){
+        disponible = false;
+        myRef = database.getReference(Utils.getPathFechas()+alojamiento.getId());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshotFechaDisp) {
+                for (DataSnapshot singleSnapshotFechaDisp : dataSnapshotFechaDisp.getChildren()) {
+                    if(alojamientoDisponible(singleSnapshotFechaDisp.getValue(FechaDisponible.class))){
+                        disponible = true;
+                        return;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Error", "error en la consulta", databaseError.toException());
+            }
+        });
+        return disponible;
     }
 
     public void onMapReady(GoogleMap googleMap) {
@@ -459,6 +548,97 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         }catch (Exception e){
         }
         return routes;
+    }
+
+    private boolean validarCampos (){
+
+
+        boolean validos = true;
+        String fechaInicio = mfechaInicio.getText().toString();
+        String fechaFinal = mfechaFinal.getText().toString();
+
+        if (fechaInicio.isEmpty()) {
+            validos = false;
+            mfechaInicio.setError ("Obligatoria.");
+        }
+        else{
+            mfechaInicio.setError (null);
+        }
+
+        if (fechaFinal.isEmpty()) {
+            validos = false;
+            mfechaFinal.setError ("Obligatoria.");
+
+        }
+        else{
+            mfechaFinal.setError (null);
+        }
+
+
+        if (!mfechaInicio.getText().toString().isEmpty() && !mfechaFinal.getText().toString().isEmpty()){
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Calendar inicio_date = Calendar.getInstance();;
+                Calendar final_date = Calendar.getInstance();;
+                inicio_date.setTime(format.parse(fechaInicio));
+                final_date.setTime(format.parse(fechaFinal));
+                Calendar fechaActual = Calendar.getInstance();
+                if (inicio_date.after(final_date) || inicio_date.before (fechaActual)){
+                    validos = false;
+                    Toast.makeText(ReservarAlojamiento.this, "Las fechas ingresadas no son validas.", Toast.LENGTH_LONG).show();
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return validos;
+    }
+
+    private boolean alojamientoDisponible (FechaDisponible fechaUsuario){
+        try{
+            Calendar fechaalojamientoInicio = Calendar.getInstance();
+            fechaalojamientoInicio.set(Calendar.YEAR, fechaUsuario.getAnioInicio());
+            fechaalojamientoInicio.set(Calendar.MONTH, fechaUsuario.getMesInicio()-1);
+            fechaalojamientoInicio.set(Calendar.DAY_OF_MONTH, fechaUsuario.getDiaInicio()-1);
+            Log.i("FECHA INICIAL", fechaalojamientoInicio.toString());
+
+            Calendar fechaalojamientoFinal = Calendar.getInstance();
+            fechaalojamientoFinal.set(Calendar.YEAR, fechaUsuario.getAnioFinal());
+            fechaalojamientoFinal.set(Calendar.MONTH, fechaUsuario.getMesFinal()-1);
+            fechaalojamientoFinal.set(Calendar.DAY_OF_MONTH, fechaUsuario.getDiaFinal()+1);
+            Log.i("FECHA FINAL", fechaalojamientoFinal.toString());
+
+
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaInicio = mfechaInicio.getText().toString();
+            String fechaFinal = mfechaFinal.getText().toString();
+
+
+
+            Calendar fechafiltroInicio = Calendar.getInstance();;
+            Calendar fechafiltroFinal = Calendar.getInstance();;
+            fechafiltroInicio.setTime(format.parse(fechaInicio));
+            fechafiltroFinal.setTime(format.parse(fechaFinal));
+
+            Log.i("FECHA FILTRO INICIAL", fechafiltroInicio.toString());
+            Log.i("FECHA FILTRO FINAL", fechafiltroFinal.toString());
+
+            if ( fechaalojamientoInicio.before(fechafiltroInicio)
+                    && fechaalojamientoFinal.after(fechafiltroFinal) ){
+                Log.i("RETORNO", "true");
+                return true;
+
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+
     }
 
 

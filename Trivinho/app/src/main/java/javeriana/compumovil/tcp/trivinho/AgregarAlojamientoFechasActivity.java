@@ -229,8 +229,8 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
                 mfechaInicio.setText("");
                 mfechaFinal.setText("");
 
-                Calendar inicio_date = Calendar.getInstance();;
-                Calendar final_date = Calendar.getInstance();;
+                Calendar inicio_date = Calendar.getInstance();
+                Calendar final_date = Calendar.getInstance();
                 inicio_date.setTime(format.parse(fechaInicio));
                 final_date.setTime(format.parse(fechaFinal));
 
