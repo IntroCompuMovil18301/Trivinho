@@ -185,9 +185,9 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private void reservaDisponible (){
         for (FechaDisponible fechaDisponible: alojamiento.getFechasDisponibles()) {
             if (alojamientoDisponible(fechaDisponible)) {
-                myRef2 = database.getReference(Utils.getPathReservas() + alojamiento.getId());
+                myRef = database.getReference(Utils.getPathReservas() + alojamiento.getId());
                 String key = myRef.push().getKey();
-                myRef2 = database.getReference(Utils.getPathReservas() + alojamiento.getId() + key);
+                myRef = database.getReference(Utils.getPathReservas() + alojamiento.getId() + key);
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -213,12 +213,14 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
                     Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
                     startActivity(intent);
+                    return;
                 }
                 catch(Exception e){
                     e.printStackTrace();
                 }
             }
         }
+        Toast.makeText(this, "El alojamiento no está disponible o está reservado en estas fechas.", Toast.LENGTH_LONG).show();
     }
 
     public void onMapReady(GoogleMap googleMap) {
