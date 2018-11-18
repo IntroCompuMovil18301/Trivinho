@@ -20,4 +20,6 @@
     <string name="ver_perfil">Ver Perfil</string>
     <string name="comentarios">Comentarios</string>
     <string name="filtrar_busqueda">Filtrar Busqueda</string>
+    <string name="agregar_sitios_interes">Agregar Sitios de Interes</string>
+    <string name="tipo_sitio_interes">Tipo Sitio de Interes</string>
 </resources>
