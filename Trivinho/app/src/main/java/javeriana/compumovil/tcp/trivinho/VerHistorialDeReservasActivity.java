@@ -45,6 +45,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     private DatabaseReference myRef2;
     private FirebaseDatabase database;
     List<Reserva> reservas;
+    
 
     private StorageReference mStorageRef;
 
