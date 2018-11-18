@@ -38,7 +38,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public CustomInfoWindowAdapter(Context contexto) {
         this.contexto = contexto;
         inflater = (LayoutInflater)contexto.getSystemService(contexto.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.item_comentarios,null);
+        view = inflater.inflate(R.layout.infowindowconstum,null);
         mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
@@ -52,10 +52,10 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         Button boton = (Button) view.findViewById(R.id.infoBoton);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
 
-        /*if(alojamiento!=null){
+        if(alojamiento!=null){
             tipo.setText(alojamiento.getTipo());
             moneda.setText(alojamiento.getTipoMoneda());
-            //precio.setText(Double.toString(alojamiento.getValorPorNoche()));
+            precio.setText(Double.toString(alojamiento.getValorPorNoche()));
             descripion.setText(alojamiento.getDescripcion());
             rating.setRating(alojamiento.getPuntaje());
             FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
@@ -70,7 +70,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
                     contexto.startActivity(activar);
                 }
             });
-        }*/
+        }
 
 
 

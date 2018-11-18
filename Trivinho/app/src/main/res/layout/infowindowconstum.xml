@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/infoimage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:padding="2dp"
             app:srcCompat="@drawable/imagen_no_disponible"
             tools:layout_editor_absoluteX="56dp"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tipo_alojamiento"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="78dp" />
 
