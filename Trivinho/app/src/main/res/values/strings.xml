@@ -22,4 +22,5 @@
     <string name="filtrar_busqueda">Filtrar Busqueda</string>
     <string name="agregar_sitios_interes">Agregar Sitios de Interes</string>
     <string name="tipo_sitio_interes">Tipo Sitio de Interes</string>
+    <string name="historial_reservas">Historial de Reservas</string>
 </resources>
