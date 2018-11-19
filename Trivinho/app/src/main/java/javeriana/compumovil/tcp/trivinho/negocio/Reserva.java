@@ -15,7 +15,8 @@ public class Reserva implements Serializable {
     private String alojamiento;
     private String huesped;
 
-
+    private Alojamiento alojamientoO;
+    private Usuario anfitrionO;
 
 
     public int getDiaInicio() {
@@ -80,5 +81,21 @@ public class Reserva implements Serializable {
 
     public void setHuesped(String huesped) {
         this.huesped = huesped;
+    }
+
+    public Alojamiento getAlojamientoO() {
+        return alojamientoO;
+    }
+
+    public void setAlojamientoO(Alojamiento alojamientoO) {
+        this.alojamientoO = alojamientoO;
+    }
+
+    public Usuario getAnfitrionO() {
+        return anfitrionO;
+    }
+
+    public void setAnfitrionO(Usuario anfitrionO) {
+        this.anfitrionO = anfitrionO;
     }
 }

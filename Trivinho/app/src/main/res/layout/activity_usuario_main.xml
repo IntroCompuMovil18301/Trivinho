@@ -96,11 +96,11 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/historialAlojamientos"
+                android:id="@+id/verhistorialreservas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/md_green_A400"
-                android:text="@string/historial_de_alojamientos"
+                android:text="Ver historico de reservas"
                 android:textColor="@android:color/background_light"
                 android:visibility="gone" />
 

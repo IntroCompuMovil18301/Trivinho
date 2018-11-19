@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -63,6 +64,7 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
     private MCalendarView calendarView;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
 
     private DatabaseReference myRef;
@@ -74,6 +76,7 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_alojamiento_fechas);
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
+
 
         agregarFecha = (Button) findViewById(R.id.agregarFechas);
         mfechaInicio = (EditText) findViewById(R.id.fechainicio);
@@ -87,6 +90,8 @@ public class AgregarAlojamientoFechasActivity extends AppCompatActivity {
         database= FirebaseDatabase.getInstance();
         salir = (Button) findViewById(R.id.salir4);
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        alojamiento.setAnfitrion(user.getUid());
 
         fechasDisponibles = new ArrayList<FechaDisponible>();
         fotos = new ArrayList<FotoAlojamiento>();
