@@ -342,6 +342,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Otros "+sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorotros))));
             }
+
             sitios.get(sitios.size() - 1).setTag(sitioDeInteres);
         }
     }
