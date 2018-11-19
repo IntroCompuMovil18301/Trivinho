@@ -65,6 +65,7 @@ import java.util.List;
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
 import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
 import javeriana.compumovil.tcp.trivinho.negocio.FotoAlojamiento;
+import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 import javeriana.compumovil.tcp.trivinho.negocio.SitioDeInteres;
 
 public class ConsultarAlojamientoActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -529,11 +530,23 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 for (final DataSnapshot singleSnapshotAlojamiento : dataSnapshotAlojamiento.getChildren()) {
                     final Alojamiento alojamiento = singleSnapshotAlojamiento.getValue(Alojamiento.class);
                     if (distance(latitudBusqueda, longitudBusqueda, alojamiento.getLatitud(), alojamiento.getLongitud()) <= 2) {
+                            boolean disponibleReserva = false;
                             for (FechaDisponible fechaDisponible : alojamiento.getFechasDisponibles()) {
                                 if (alojamientoDisponible(fechaDisponible)) {
-                                    alojamiento.setId(singleSnapshotAlojamiento.getKey());
-                                    colocarAlojamiento(alojamiento);
+                                    disponibleReserva = true;
+                                    break;
                                 }
+                            }
+                            if (alojamiento.getReservas()!=null)
+                                for (Reserva reserva: alojamiento.getReservas()) {
+                                    if(alojamientoReservado(reserva)) {
+                                        disponibleReserva = false;
+                                        break;
+                                    }
+                                }
+                            if (disponibleReserva){
+                                alojamiento.setId(singleSnapshotAlojamiento.getKey());
+                                colocarAlojamiento(alojamiento);
                             }
                     }
                 }
@@ -543,6 +556,50 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 Log.w("ErrorDB", "error en la consulta", databaseError.toException());
             }
         });
+    }
+
+    private boolean alojamientoReservado(Reserva reserva){
+        try{
+            Calendar fechareservaInicio = Calendar.getInstance();
+            fechareservaInicio.set(Calendar.YEAR, reserva.getAnioInicio());
+            fechareservaInicio.set(Calendar.MONTH, reserva.getMesInicio()-1);
+            fechareservaInicio.set(Calendar.DAY_OF_MONTH, reserva.getDiaInicio()-1);
+            Log.i("FECHA INICIAL", fechareservaInicio.toString());
+
+            Calendar fechareservaFinal = Calendar.getInstance();
+            fechareservaFinal.set(Calendar.YEAR, reserva.getAnioFinal());
+            fechareservaFinal.set(Calendar.MONTH, reserva.getMesFinal()-1);
+            fechareservaFinal.set(Calendar.DAY_OF_MONTH, reserva.getDiaFinal()+1);
+            Log.i("FECHA FINAL", fechareservaFinal.toString());
+
+
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaInicio = mfechaInicio.getText().toString();
+            String fechaFinal = mfechaFinal.getText().toString();
+
+
+
+            Calendar fechafiltroInicio = Calendar.getInstance();;
+            Calendar fechafiltroFinal = Calendar.getInstance();;
+            fechafiltroInicio.setTime(format.parse(fechaInicio));
+            fechafiltroFinal.setTime(format.parse(fechaFinal));
+
+            Log.i("FECHA FILTRO INICIAL", fechafiltroInicio.toString());
+            Log.i("FECHA FILTRO FINAL", fechafiltroFinal.toString());
+
+            if ( fechareservaInicio.before(fechafiltroInicio)
+                    && fechareservaFinal.after(fechafiltroFinal) ){
+                Log.i("RETORNO", "true");
+                return true;
+
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 

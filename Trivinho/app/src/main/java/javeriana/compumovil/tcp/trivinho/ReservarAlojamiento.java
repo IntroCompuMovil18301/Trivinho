@@ -187,45 +187,101 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    private boolean alojamientoReservado(Reserva reserva){
+        try{
+            Calendar fechareservaInicio = Calendar.getInstance();
+            fechareservaInicio.set(Calendar.YEAR, reserva.getAnioInicio());
+            fechareservaInicio.set(Calendar.MONTH, reserva.getMesInicio()-1);
+            fechareservaInicio.set(Calendar.DAY_OF_MONTH, reserva.getDiaInicio()-1);
+            Log.i("FECHA INICIAL", fechareservaInicio.toString());
+
+            Calendar fechareservaFinal = Calendar.getInstance();
+            fechareservaFinal.set(Calendar.YEAR, reserva.getAnioFinal());
+            fechareservaFinal.set(Calendar.MONTH, reserva.getMesFinal()-1);
+            fechareservaFinal.set(Calendar.DAY_OF_MONTH, reserva.getDiaFinal()+1);
+            Log.i("FECHA FINAL", fechareservaFinal.toString());
+
+
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaInicio = mfechaInicio.getText().toString();
+            String fechaFinal = mfechaFinal.getText().toString();
+
+
+
+            Calendar fechafiltroInicio = Calendar.getInstance();;
+            Calendar fechafiltroFinal = Calendar.getInstance();;
+            fechafiltroInicio.setTime(format.parse(fechaInicio));
+            fechafiltroFinal.setTime(format.parse(fechaFinal));
+
+            Log.i("FECHA FILTRO INICIAL", fechafiltroInicio.toString());
+            Log.i("FECHA FILTRO FINAL", fechafiltroFinal.toString());
+
+            if ( fechareservaInicio.before(fechafiltroInicio)
+                    && fechareservaFinal.after(fechafiltroFinal) ){
+                Log.i("RETORNO", "true");
+                return true;
+
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     private void reservaDisponible (){
+        boolean disponibleReserva = false;
         for (FechaDisponible fechaDisponible: alojamiento.getFechasDisponibles()) {
-            if (alojamientoDisponible(fechaDisponible)) {
-
-                try {
-
-
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-                    String fechaInicio = mfechaInicio.getText().toString();
-                    String fechaFinal = mfechaFinal.getText().toString();
-
-                    Calendar inicio_date = Calendar.getInstance();
-                    Calendar final_date = Calendar.getInstance();
-                    inicio_date.setTime(format.parse(fechaInicio));
-                    final_date.setTime(format.parse(fechaFinal));
-
-                    Reserva reserva = new Reserva();
-                    reserva.setAnioInicio(inicio_date.get(Calendar.YEAR));
-                    reserva.setMesInicio(inicio_date.get(Calendar.MONTH) + 1);
-                    reserva.setDiaInicio(inicio_date.get(Calendar.DAY_OF_MONTH));
-
-
-                    reserva.setAnioFinal(final_date.get(Calendar.YEAR));
-                    reserva.setMesFinal(final_date.get(Calendar.MONTH) + 1);
-                    reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
-
-                    guardarReservaAlojamiento(reserva);
-                    guardarReservaHuesped(reserva);
-
-
-                    Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
-                    startActivity(intent);
-                    return;
+            if (alojamientoDisponible(fechaDisponible)){
+                disponibleReserva = true;
+            }
+        }
+        if (alojamiento.getReservas()!=null)
+            for (Reserva reserva: alojamiento.getReservas()) {
+                if(alojamientoReservado(reserva)) {
+                    disponibleReserva = false;
+                    break;
                 }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
+            }
+
+        if (disponibleReserva) {
+
+            try {
+
+
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+                String fechaInicio = mfechaInicio.getText().toString();
+                String fechaFinal = mfechaFinal.getText().toString();
+
+                Calendar inicio_date = Calendar.getInstance();
+                Calendar final_date = Calendar.getInstance();
+                inicio_date.setTime(format.parse(fechaInicio));
+                final_date.setTime(format.parse(fechaFinal));
+
+                Reserva reserva = new Reserva();
+                reserva.setAnioInicio(inicio_date.get(Calendar.YEAR));
+                reserva.setMesInicio(inicio_date.get(Calendar.MONTH) + 1);
+                reserva.setDiaInicio(inicio_date.get(Calendar.DAY_OF_MONTH));
+
+
+                reserva.setAnioFinal(final_date.get(Calendar.YEAR));
+                reserva.setMesFinal(final_date.get(Calendar.MONTH) + 1);
+                reserva.setDiaFinal(final_date.get(Calendar.DAY_OF_MONTH));
+
+                guardarReservaAlojamiento(reserva);
+                guardarReservaHuesped(reserva);
+
+
+                Toast.makeText(ReservarAlojamiento.this, "Reserva realizada con éxito.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ReservarAlojamiento.this, UsuarioMainActivity.class);
+                startActivity(intent);
+                return;
+            }
+            catch(Exception e){
+                e.printStackTrace();
             }
         }
         Toast.makeText(this, "El alojamiento no está disponible o está reservado en estas fechas.", Toast.LENGTH_LONG).show();
