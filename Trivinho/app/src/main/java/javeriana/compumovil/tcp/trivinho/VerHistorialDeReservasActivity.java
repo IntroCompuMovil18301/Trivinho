@@ -89,6 +89,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Alojamiento alojamiento = dataSnapshot.getValue(Alojamiento.class);
                 alojamiento.getDescripcion();
+                Log.i("alojamiento--", alojamiento.getDescripcion());
                 reserva.setAlojamientoO(alojamiento);
                 myRef2 = database.getReference(Utils.getPathUsers()+alojamiento.getAnfitrion());
                 myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
