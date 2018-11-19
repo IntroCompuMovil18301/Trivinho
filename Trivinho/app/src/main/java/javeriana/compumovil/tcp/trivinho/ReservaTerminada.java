@@ -53,31 +53,31 @@ public class ReservaTerminada extends IntentService {
                 mAuth = FirebaseAuth.getInstance();
 
                 user = mAuth.getCurrentUser();
+                if (user!=null) {
 
-                myRef = database.getReference(Utils.getPathHuespedes() + user.getUid());
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Huesped huesped = dataSnapshot.getValue(Huesped.class);
-                        if (huesped.getReservas()!=null){
-                            for (Reserva reserva: huesped.getReservas()){
-                                if (reservaTerminada (reserva) ){
-                                    //se crea la notificacióon para la reservaaa
-                                    mostrarNotificacion();
+                    myRef = database.getReference(Utils.getPathHuespedes() + user.getUid());
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Huesped huesped = dataSnapshot.getValue(Huesped.class);
+                            if (huesped.getReservas() != null) {
+                                for (Reserva reserva : huesped.getReservas()) {
+                                    if (reservaTerminada(reserva)) {
+                                        //se crea la notificacióon para la reservaaa
+                                        mostrarNotificacion(reserva.getAlojamiento());
+                                    }
                                 }
                             }
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                Thread.sleep(1000 * 3600);
+                        }
+                    });
+                }
+                Thread.sleep(10 * 1000 * 3600); //CADA 10 HORAS
                 Log.i("HECHO", "Servicio en ejecución");
 
             }
@@ -106,7 +106,7 @@ public class ReservaTerminada extends IntentService {
 
         return false;
     }
-    private void mostrarNotificacion(){
+    private void mostrarNotificacion(String alojamiento){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "APPTRIVINHO");
         mBuilder.setSmallIcon(R.drawable.marcadorcasa);
         mBuilder.setContentTitle("Puedes calificar un alojamiento!");
@@ -114,6 +114,7 @@ public class ReservaTerminada extends IntentService {
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         Intent intent = new Intent(this, CalificarAlojamientoActivity.class);
+        intent.putExtra("alojamiento", alojamiento);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
