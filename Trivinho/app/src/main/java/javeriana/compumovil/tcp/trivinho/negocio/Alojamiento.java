@@ -12,7 +12,7 @@ public class Alojamiento implements Serializable {
     private Double valorPorNoche;
     private String tipoMoneda;
     private String descripcion;
-    private float  puntaje;
+    private Double  puntaje;
     private String anfitrion;
 
     private double latitud;
@@ -22,8 +22,10 @@ public class Alojamiento implements Serializable {
     private List<FotoAlojamiento> fotos;
     private List<SitioDeInteres> sitiosDeInteres;
     private List<Reserva> reservas;
+    private List<Calificacion> calificaciones;
 
     private int numeroReservas;
+    private int numeroCalificaciones;
 
 
 
@@ -32,15 +34,17 @@ public class Alojamiento implements Serializable {
         fotos = new ArrayList<FotoAlojamiento>();
         reservas = new ArrayList<Reserva>();
         sitiosDeInteres = new ArrayList<SitioDeInteres>();
-        puntaje=0;
+        calificaciones = new ArrayList<Calificacion>();
+        puntaje=0.0;
         numeroReservas = 0;
+        numeroCalificaciones = 0;
     }
 
-    public float getPuntaje() {
+    public Double getPuntaje() {
         return puntaje;
     }
 
-    public void setPuntaje(float puntaje) {
+    public void setPuntaje(Double puntaje) {
         this.puntaje = puntaje;
     }
 
@@ -150,5 +154,19 @@ public class Alojamiento implements Serializable {
     }
 
 
+    public List<Calificacion> getCalificaciones() {
+        return calificaciones;
+    }
 
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
+    }
+
+    public int getNumeroCalificaciones() {
+        return numeroCalificaciones;
+    }
+
+    public void setNumeroCalificaciones(int numeroCalificaciones) {
+        this.numeroCalificaciones = numeroCalificaciones;
+    }
 }

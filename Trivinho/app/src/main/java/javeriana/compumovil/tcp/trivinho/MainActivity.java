@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this, ReservaTerminada.class));
-
 
         mUser= (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.pass);
