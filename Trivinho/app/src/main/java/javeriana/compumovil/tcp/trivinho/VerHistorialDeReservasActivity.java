@@ -43,6 +43,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     private FirebaseDatabase database;
 
     private ListView lista;
+    private HistorialReservasUsuarioListAdapter adaptador;
 
     List<Reserva> reservas;
 
@@ -60,9 +61,11 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         reservas = new ArrayList<Reserva>();
 
-        obtenerListaDeReservas();
+        lista = (ListView) findViewById(R.id.listaReservasUsuario);
+        adaptador = new HistorialReservasUsuarioListAdapter(this,reservas);
+        lista.setAdapter(adaptador);
 
-        lista.setAdapter(new HistorialReservasUsuarioListAdapter(this,reservas));
+        obtenerListaDeReservas();
     }
 
 
@@ -139,6 +142,8 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
                         String filePath = finalLocalFile.getPath();
                         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
                         reserva.setFoto(bitmap);
+                        reservas.add(reserva);
+                        adaptador.notifyDataSetChanged();
                         //foto.setImageBitmap(bitmap); //AQUI VA EL IMAGEVIEW QUE SE CAMBIA --- DEBERIA SER EL DE LA LISTA
                         // AQUI YA TIENE EL RESTO DE LA INFO A PARTIR DE RESERVA
                     }
