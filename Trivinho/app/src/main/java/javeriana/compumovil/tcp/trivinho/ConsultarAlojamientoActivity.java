@@ -44,6 +44,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,6 +61,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
@@ -271,6 +273,15 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(ConsultarAlojamientoActivity.this));
+        int hora = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+
+        if(hora>6&&hora<=18){
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this,R.raw.style_map_day));
+        }
+        else{
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this,R.raw.style_map_night));
+        }
+        Toast.makeText(this,Integer.toString(hora),Toast.LENGTH_LONG).show();
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override

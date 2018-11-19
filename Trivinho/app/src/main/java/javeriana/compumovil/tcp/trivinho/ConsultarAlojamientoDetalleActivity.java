@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
     private GridView fotos;
     private StorageReference mStorageRef;
+    private ListView listacomentarios;
 
     private RatingBar calificacion;
     private ImageAdapter imageAdapter;
@@ -55,6 +57,8 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         valor = (TextView) findViewById(R.id.detalleValor);
         calificacion = (RatingBar) findViewById(R.id.detalleRatingBar);
         fotos=(GridView)findViewById(R.id.gridFotos);
+        listacomentarios=(ListView)findViewById(R.id.listComentarios);
+
 
         imageAdapter = new ImageAdapter(this);
 
@@ -63,6 +67,7 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
+        listacomentarios.setAdapter(new ComentariosListAdapter(this,alojamiento.getCalificaciones()));
 
         tipo.setText(alojamiento.getTipo());
         descripcion.setText(alojamiento.getDescripcion());
@@ -90,6 +95,8 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         for(FotoAlojamiento fotico:alojamiento.getFotos()){
             descargaryMostrarFoto(fotico.getRutaFoto());
         }
+
+
 
     }
 

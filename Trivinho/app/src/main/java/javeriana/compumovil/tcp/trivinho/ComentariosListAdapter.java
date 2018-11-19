@@ -9,19 +9,19 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.List;
+
+import javeriana.compumovil.tcp.trivinho.negocio.Calificacion;
+
 public class ComentariosListAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     private Context contexto;
-    private String[][] datos;
-    private int imagenes[];
-    private float calificacion[];
+    private List<Calificacion> comentarios;
 
-    public ComentariosListAdapter(Context contexto, String[][] datos, int imagenes[], float calificacion[]) {
+    public ComentariosListAdapter(Context contexto, List<Calificacion> comentarios) {
         this.contexto = contexto;
-        this.datos = datos;
-        this.imagenes = imagenes;
-        this.calificacion = calificacion;
+        this.comentarios = comentarios;
         inflater = (LayoutInflater)contexto.getSystemService(contexto.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -31,28 +31,25 @@ public class ComentariosListAdapter extends BaseAdapter {
         final View v = inflater.inflate(R.layout.item_comentarios,null);
 
         TextView nombre = (TextView) v.findViewById(R.id.comenNombre);
-        TextView fecha = (TextView) v.findViewById(R.id.comenFecha);
         TextView comentario = (TextView) v.findViewById(R.id.comenComentario);
         RatingBar rating = (RatingBar) v.findViewById(R.id.comenRating);
-        ImageView imagen = (ImageView) v.findViewById(R.id.comenUsuario);
 
-        nombre.setText(datos[i][0]);
-        comentario.setText(datos[i][1]);
-        fecha.setText(datos[i][2]);
-        rating.setRating(calificacion[i]);
+        nombre.setText(comentarios.get(i).getUsuario());
+        comentario.setText(comentarios.get(i).getComentario());
+        rating.setRating(comentarios.get(i).getCalificacion());
 
-        imagen.setTag(1);
+        rating.setTag(1);
         return v;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return comentarios.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return comentarios.get(i);
     }
 
     @Override
