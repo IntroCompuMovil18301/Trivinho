@@ -9,9 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadeScrollbars="true"
+        android:isScrollContainer="true"
+        android:fadeScrollbars="false"
+        android:nestedScrollingEnabled="true"
         android:scrollIndicators="top|end"
-        android:scrollbarFadeDuration="1"
+        android:scrollbarFadeDuration="0"
         android:scrollbarSize="10dp"
         android:scrollbarStyle="insideInset">
 
@@ -241,14 +243,15 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
+                android:fadeScrollbars="false"
                 android:numColumns="2"
-                android:scrollbarFadeDuration="1"
+                android:scrollbarFadeDuration="0"
                 android:scrollbarSize="10dp"
-                android:scrollbarStyle="insideInset"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

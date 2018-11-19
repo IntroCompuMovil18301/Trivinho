@@ -19,6 +19,7 @@
         android:gravity="center"
         android:horizontalSpacing="4dp"
         android:numColumns="auto_fit"
+        android:padding="8dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="10dp"
