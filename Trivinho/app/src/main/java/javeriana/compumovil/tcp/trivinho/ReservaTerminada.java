@@ -34,6 +34,7 @@ public class ReservaTerminada extends IntentService {
     private static int notificationId = 001;
 
     private DatabaseReference myRef;
+    private DatabaseReference myRef2;
     private FirebaseDatabase database;
 
     private FirebaseAuth mAuth;
@@ -65,15 +66,14 @@ public class ReservaTerminada extends IntentService {
                             if (huesped.getReservas() != null) {
                                 int i=0;
                                 for (Reserva reserva : huesped.getReservas()) {
-                                    if (!reserva.isCalificada())
+                                    if (!reserva.isCalificada()){
                                         if (reservaTerminada(reserva)) {
                                             //se crea la notificacióon para la reservaaa
-                                            myRef = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i)+"/"+"calificada");
-                                            myRef.setValue(true);
-                                            mostrarNotificacion(reserva.getAlojamiento());
-
+                                            mostrarNotificacion(reserva.getAlojamiento(), i);
                                         }
-                                        i++;
+                                     }
+                                     i++;
+
                                 }
                             }
 
@@ -98,6 +98,7 @@ public class ReservaTerminada extends IntentService {
 
     private boolean reservaTerminada(Reserva reserva){
 
+
             Calendar fechareservaFinal = Calendar.getInstance();
             fechareservaFinal.set(Calendar.YEAR, reserva.getAnioFinal());
             fechareservaFinal.set(Calendar.MONTH, reserva.getMesFinal()-1);
@@ -114,7 +115,10 @@ public class ReservaTerminada extends IntentService {
 
         return false;
     }
-    private void mostrarNotificacion(String alojamiento){
+    private void mostrarNotificacion(String alojamiento, int i){
+
+
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "APPTRIVINHO");
         mBuilder.setSmallIcon(R.drawable.notificacion);
         mBuilder.setContentTitle("Puedes calificar un alojamiento!");
@@ -135,5 +139,8 @@ public class ReservaTerminada extends IntentService {
                 NotificationManagerCompat.from(this);
 // notificationId es un entero unico definido para cada notificacion que se lanza
         notificationManager.notify(notificationId, mBuilder.build());
+
+        myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i) + "/" + "calificada");
+        myRef2.setValue(true);
     }
 }
