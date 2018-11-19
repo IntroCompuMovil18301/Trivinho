@@ -3,14 +3,14 @@ package javeriana.compumovil.tcp.trivinho.negocio;
 import java.io.Serializable;
 
 public class Calificacion implements Serializable {
-    private Double calificacion;
+    private float calificacion;
     private String comentario;
 
-    public Double getCalificacion() {
+    public float getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(Double calificacion) {
+    public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
     }
 }
