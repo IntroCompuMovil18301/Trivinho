@@ -169,4 +169,16 @@ public class Alojamiento implements Serializable {
     public void setNumeroCalificaciones(int numeroCalificaciones) {
         this.numeroCalificaciones = numeroCalificaciones;
     }
+
+    public void addCalificacion(Calificacion calificacion){
+        this.calificaciones.add(calificacion);
+    }
+
+    public void calcularPuntaje(){
+        float sum=0;
+        for (Calificacion calificacion: calificaciones){
+            sum = sum + calificacion.getCalificacion();
+        }
+        puntaje = sum/numeroCalificaciones;
+    }
 }

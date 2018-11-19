@@ -106,6 +106,11 @@ public class CalificarAlojamientoActivity extends AppCompatActivity {
 
         myRef = database.getReference(Utils.getPathAlojamientos()+alojamiento+"/calificaciones/"+ String.valueOf(alojamientoO.getNumeroCalificaciones()-1));
         myRef.setValue(calificacion);
+
+        alojamientoO.addCalificacion(calificacion);
+        alojamientoO.calcularPuntaje();
+        myRef = database.getReference(Utils.getPathAlojamientos()+alojamiento+"/puntaje");
+        myRef.setValue(alojamientoO.getPuntaje());
     }
 
     private void inicializarVista(){
