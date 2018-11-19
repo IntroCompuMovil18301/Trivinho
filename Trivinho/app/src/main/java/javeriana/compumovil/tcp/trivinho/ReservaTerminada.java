@@ -108,7 +108,7 @@ public class ReservaTerminada extends IntentService {
     }
     private void mostrarNotificacion(String alojamiento){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "APPTRIVINHO");
-        mBuilder.setSmallIcon(R.drawable.marcadorcasa);
+        mBuilder.setSmallIcon(R.drawable.notificación);
         mBuilder.setContentTitle("Puedes calificar un alojamiento!");
         mBuilder.setContentText("Ha pasado la fecha de reserva de un alojamiento.");
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
