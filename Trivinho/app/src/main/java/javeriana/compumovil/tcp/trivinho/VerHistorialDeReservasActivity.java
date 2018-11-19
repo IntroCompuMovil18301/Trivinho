@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,7 +41,11 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private DatabaseReference myRef2;
     private FirebaseDatabase database;
+
+    private ListView lista;
+
     List<Reserva> reservas;
+
 
 
     private StorageReference mStorageRef;
@@ -57,6 +62,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
 
         obtenerListaDeReservas();
 
+        lista.setAdapter(new HistorialReservasUsuarioListAdapter(this,reservas));
     }
 
 
@@ -113,7 +119,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     }
 
 
-    private void descargaryMostrarFoto (Reserva reserva){
+    private void descargaryMostrarFoto (final Reserva reserva){
 
         final StorageReference fotoAlojamiento = mStorageRef.child(reserva.getAlojamientoO().getFotos().get(0).getRutaFoto());
         File localFile = null;
@@ -132,6 +138,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
                         // ...
                         String filePath = finalLocalFile.getPath();
                         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                        reserva.setFoto(bitmap);
                         //foto.setImageBitmap(bitmap); //AQUI VA EL IMAGEVIEW QUE SE CAMBIA --- DEBERIA SER EL DE LA LISTA
                         // AQUI YA TIENE EL RESTO DE LA INFO A PARTIR DE RESERVA
                     }
