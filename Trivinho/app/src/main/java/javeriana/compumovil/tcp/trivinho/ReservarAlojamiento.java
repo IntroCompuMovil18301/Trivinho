@@ -298,6 +298,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
 
     private void guardarReservaHuesped (final Reserva reserva){
         reserva.setHuesped(null);
+        reserva.setCalificada(false);
         reserva.setAlojamiento(alojamiento.getId());
         myRef = database.getReference (Utils.getPathHuespedes() + user.getUid() + "/numeroReservas");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

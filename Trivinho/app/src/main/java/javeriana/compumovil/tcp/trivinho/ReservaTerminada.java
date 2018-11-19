@@ -31,6 +31,8 @@ import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 
 public class ReservaTerminada extends IntentService {
 
+    private static int notificationId = 001;
+
     private DatabaseReference myRef;
     private FirebaseDatabase database;
 
@@ -61,11 +63,17 @@ public class ReservaTerminada extends IntentService {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Huesped huesped = dataSnapshot.getValue(Huesped.class);
                             if (huesped.getReservas() != null) {
+                                int i=0;
                                 for (Reserva reserva : huesped.getReservas()) {
-                                    if (reservaTerminada(reserva)) {
-                                        //se crea la notificacióon para la reservaaa
-                                        mostrarNotificacion(reserva.getAlojamiento());
-                                    }
+                                    if (!reserva.isCalificada())
+                                        if (reservaTerminada(reserva)) {
+                                            //se crea la notificacióon para la reservaaa
+                                            myRef = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i)+"/"+"calificada");
+                                            myRef.setValue(true);
+                                            mostrarNotificacion(reserva.getAlojamiento());
+
+                                        }
+                                        i++;
                                 }
                             }
 
@@ -122,7 +130,7 @@ public class ReservaTerminada extends IntentService {
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
 
-        int notificationId = 001;
+        notificationId ++;
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
 // notificationId es un entero unico definido para cada notificacion que se lanza

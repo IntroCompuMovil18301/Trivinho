@@ -145,8 +145,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
                         reserva.setFoto(bitmap);
                         reservas.add(reserva);
                         adaptador.notifyDataSetChanged();
-                        //foto.setImageBitmap(bitmap); //AQUI VA EL IMAGEVIEW QUE SE CAMBIA --- DEBERIA SER EL DE LA LISTA
-                        // AQUI YA TIENE EL RESTO DE LA INFO A PARTIR DE RESERVA
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

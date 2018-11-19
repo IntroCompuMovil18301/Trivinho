@@ -14,6 +14,11 @@ public class Reserva implements Serializable {
     private int mesFinal;
     private int anioFinal;
 
+    private boolean calificada;
+
+
+
+
     private String alojamiento;
     private String huesped;
 
@@ -108,5 +113,14 @@ public class Reserva implements Serializable {
 
     public void setAnfitrionO(Usuario anfitrionO) {
         this.anfitrionO = anfitrionO;
+    }
+
+
+    public boolean isCalificada() {
+        return calificada;
+    }
+
+    public void setCalificada(boolean calificada) {
+        this.calificada = calificada;
     }
 }
