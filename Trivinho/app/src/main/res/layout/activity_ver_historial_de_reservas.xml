@@ -7,6 +7,7 @@
     tools:context=".VerHistorialDeReservasActivity">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView13"
         android:layout_width="0dp"
@@ -90,6 +91,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
+=======
+>>>>>>> parent of 910c2af... Revert "VerHistoricoV1"
 =======
 >>>>>>> parent of 910c2af... Revert "VerHistoricoV1"
 </android.support.constraint.ConstraintLayout>
