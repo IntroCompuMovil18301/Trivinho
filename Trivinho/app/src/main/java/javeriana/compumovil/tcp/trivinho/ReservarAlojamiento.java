@@ -444,7 +444,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
 
         String url="https://maps.googleapis.com/maps/api/directions/json?origin="+String.valueOf(latitudInicial)+
                 ","+String.valueOf(longitudInicial)+"&destination="+String.valueOf(latitudFinal)+","+
-                String.valueOf(longitudFinal)+"&key=AIzaSyAqYCyHsdafKZuGtUus62G1JqV3wb8DHTw";
+                String.valueOf(longitudFinal)+"&key=AIzaSyAZtCSPWuMkfF8hwdAW658nAdloESMxVbs";
 
         Log.i("ruta:", "peticion enviada");
 

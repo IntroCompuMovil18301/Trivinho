@@ -31,7 +31,7 @@ import javeriana.compumovil.tcp.trivinho.negocio.Reserva;
 
 public class ReservaTerminada extends IntentService {
 
-    private static int notificationId = 001;
+    private static int notificationId = 0013;
 
     private DatabaseReference myRef;
     private DatabaseReference myRef2;
@@ -69,11 +69,11 @@ public class ReservaTerminada extends IntentService {
                                     if (!reserva.isCalificada()){
                                         if (reservaTerminada(reserva)) {
                                             //se crea la notificacióon para la reservaaa
+                                            Log.i("calificacion", String.valueOf(reserva.isCalificada()));
                                             mostrarNotificacion(reserva.getAlojamiento(), i);
                                         }
                                      }
                                      i++;
-
                                 }
                             }
 
@@ -116,9 +116,6 @@ public class ReservaTerminada extends IntentService {
         return false;
     }
     private void mostrarNotificacion(String alojamiento, int i){
-
-
-
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "APPTRIVINHO");
         mBuilder.setSmallIcon(R.drawable.notificacion);
         mBuilder.setContentTitle("Puedes calificar un alojamiento!");
@@ -128,14 +125,14 @@ public class ReservaTerminada extends IntentService {
         Intent intent = new Intent(this, CalificarAlojamientoActivity.class);
         intent.putExtra("alojamiento", alojamiento);
         intent.putExtra("usuario", user.getDisplayName());
+        intent.putExtra("usuarioId", user.getUid());
+        intent.putExtra("i", i);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
 
-        myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i) + "/" + "calificada");
-        myRef2.setValue(true);
 
         notificationId ++;
         NotificationManagerCompat notificationManager =
