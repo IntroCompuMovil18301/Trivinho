@@ -33,7 +33,7 @@ import javeriana.compumovil.tcp.trivinho.negocio.Usuario;
 public class UsuarioMainActivity extends AppCompatActivity {
 
     private Button consultarAlojamiento;
-    private Button historialAlojamientos;
+    private Button verHistorialReservas;
     private Button reseñas;
     private Button verMisAlojamientos;
     private Button agregarAlojamiento;
@@ -41,6 +41,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
     private Button notificaciones;
     private Button verSolicitudes;
     private Button salir;
+
 
     private ImageView foto;
     private TextView mEdad;
@@ -61,7 +62,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_main);
         consultarAlojamiento=(Button) findViewById(R.id.consultarAlojamiento);
-        historialAlojamientos=(Button) findViewById(R.id.historialAlojamientos);
+        verHistorialReservas=(Button) findViewById(R.id.verhistorialreservas);
         reseñas=(Button) findViewById(R.id.reseñas);
         verMisAlojamientos=(Button) findViewById(R.id.verMisAlojamientos);
         agregarAlojamiento=(Button) findViewById(R.id.agregarAlojamiento);
@@ -94,10 +95,10 @@ public class UsuarioMainActivity extends AppCompatActivity {
             }
         });
 
-        historialAlojamientos.setOnClickListener(new View.OnClickListener() {
+        verHistorialReservas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent activar=new Intent(view.getContext(),HistorialDeAlojamientoActivity.class);
+                Intent activar=new Intent(view.getContext(),VerHistorialDeReservasActivity.class);
                 startActivity(activar);
             }
         });
@@ -165,6 +166,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
 
     private void inicializarMenuHuesped(){
         consultarAlojamiento.setVisibility(View.VISIBLE);
+        verHistorialReservas.setVisibility(View.VISIBLE);
     }
     private void inicializarMenuAnfitrion(){
         agregarAlojamiento.setVisibility(View.VISIBLE);
