@@ -42,7 +42,7 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         descripcion.setText(alojamiento.getDescripcion());
         valor.setText(Double.toString(alojamiento.getValorPorNoche()));
         moneda.setText(alojamiento.getTipoMoneda());
-        calificacion.setRating(alojamiento.getPuntaje());
+        calificacion.setRating(alojamiento.getPuntaje().floatValue());
 
 
 

@@ -282,6 +282,9 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                     alojamientoSeleccionado = (Alojamiento) marker.getTag();
                     mostrarSitiosInteres();
                 }
+                else if(marker.getTag()!= null && (marker.getTag() instanceof SitioDeInteres)){
+                    marker.showInfoWindow();
+                }
                 else{
                     alojamientoSeleccionado = null;
                 }
@@ -299,50 +302,49 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         for (SitioDeInteres sitioDeInteres: alojamientoSeleccionado.getSitiosDeInteres()){
             LatLng ubicacion = new LatLng(sitioDeInteres.getLatitud(), sitioDeInteres.getLongitud());
             if (sitioDeInteres.getTipo().equals("Gimnasio")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Gimnasio: "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Gimnasio").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorgimnasio))));
             }
 
             if (sitioDeInteres.getTipo().equals("Transporte")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Transporte "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Transporte").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortransporte))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Restaurante")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Restaurante "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Restaurante").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorrestaurante))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Cajero")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Cajero "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Cajero").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadordinero))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Farmacia")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Farmacia "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Farmacia").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorenfermeria))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Supermercado")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Supermercado "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Supermercado").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadormercado))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Centro comercial")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Centro comercial "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Centro comercial").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortienda))));
             }
 
             if (sitioDeInteres.getTipo().toString().equals("Aeropuerto")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Aeropuerto "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Aeropuerto").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadoraeropuerto))));
             }
 
             if (sitioDeInteres.getTipo().equals("Otros")) {
-                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Otros "+sitioDeInteres.getDescripcion())
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Otros").snippet(sitioDeInteres.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorotros))));
             }
-
             sitios.get(sitios.size() - 1).setTag(sitioDeInteres);
         }
     }

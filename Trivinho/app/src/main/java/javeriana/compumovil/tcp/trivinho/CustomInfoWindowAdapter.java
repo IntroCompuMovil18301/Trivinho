@@ -43,7 +43,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     private void agregarInformacion(Marker marker){
-        final Alojamiento alojamiento = (Alojamiento) marker.getTag();
+        Alojamiento alojamiento = null;
         TextView tipo = (TextView) view.findViewById(R.id.infoTipo);
         TextView moneda = (TextView) view.findViewById(R.id.infoMoneda);
         TextView precio = (TextView) view.findViewById(R.id.infoPrecio);
@@ -51,16 +51,32 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         foto = (ImageView) view.findViewById(R.id.infoimage);
         RatingBar rating = (RatingBar) view.findViewById(R.id.infoRating);
 
+        if(marker.getTag() instanceof  Alojamiento){
+            alojamiento = (Alojamiento) marker.getTag();
+        }
+
         if(alojamiento!=null){
             tipo.setText(alojamiento.getTipo());
             moneda.setText(alojamiento.getTipoMoneda());
+            moneda.setVisibility(View.VISIBLE);
             precio.setText(Double.toString(alojamiento.getValorPorNoche()));
+            precio.setVisibility(View.VISIBLE);
             descripion.setText(alojamiento.getDescripcion());
-            rating.setRating(alojamiento.getPuntaje());
+            descripion.setVisibility(View.VISIBLE);
+            rating.setRating(alojamiento.getPuntaje().floatValue());
+            rating.setVisibility(View.VISIBLE);
+            foto.setVisibility(View.VISIBLE);
             FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
 
             descargaryMostrarFoto(fotoAlojamiento.getRutaFoto());
-
+        }
+        else{
+            tipo.setText(marker.getTitle());
+            moneda.setVisibility(View.GONE);
+            precio.setVisibility(View.GONE);
+            descripion.setText(marker.getSnippet());
+            rating.setVisibility(View.GONE);
+            foto.setVisibility(View.GONE);
         }
 
 
