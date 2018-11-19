@@ -1,14 +1,29 @@
 package javeriana.compumovil.tcp.trivinho;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
+import javeriana.compumovil.tcp.trivinho.negocio.FotoAlojamiento;
 
 public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
@@ -20,7 +35,11 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
     private TextView moneda;
     private TextView valor;
 
+    private GridView fotos;
+    private StorageReference mStorageRef;
+
     private RatingBar calificacion;
+    private ImageAdapter imageAdapter;
 
     private Alojamiento alojamiento;
 
@@ -35,6 +54,13 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         moneda = (TextView) findViewById(R.id.detalleMoneda) ;
         valor = (TextView) findViewById(R.id.detalleValor);
         calificacion = (RatingBar) findViewById(R.id.detalleRatingBar);
+        fotos=(GridView)findViewById(R.id.gridFotos);
+
+        imageAdapter = new ImageAdapter(this);
+
+        fotos.setAdapter(imageAdapter);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
@@ -43,7 +69,6 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         valor.setText(Double.toString(alojamiento.getValorPorNoche()));
         moneda.setText(alojamiento.getTipoMoneda());
         calificacion.setRating(alojamiento.getPuntaje());
-
 
 
         versitiosInteres.setOnClickListener(new View.OnClickListener() {
@@ -62,5 +87,40 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
             }
         });
 
+        for(FotoAlojamiento fotico:alojamiento.getFotos()){
+            descargaryMostrarFoto(fotico.getRutaFoto());
+        }
+
+    }
+
+
+    private void descargaryMostrarFoto (String ruta) {
+        final StorageReference fotoUsuario = mStorageRef.child(ruta);
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("images", "jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final File finalLocalFile = localFile;
+        fotoUsuario.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        // Successfully downloaded data to local file
+                        // ...
+                        String filePath = finalLocalFile.getPath();
+                        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                        imageAdapter.agregarImagen(bitmap);
+                        fotos.setAdapter(imageAdapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                // ...
+            }
+        });
     }
 }
