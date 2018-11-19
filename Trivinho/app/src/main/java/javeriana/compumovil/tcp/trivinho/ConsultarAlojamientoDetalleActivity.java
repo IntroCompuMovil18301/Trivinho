@@ -12,9 +12,11 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +32,8 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
     private Button versitiosInteres;
     private Button reservar;
+    private Button salir;
+    private Button inicio;
 
     private TextView tipo;
     private TextView descripcion;
@@ -45,6 +49,8 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
     private Alojamiento alojamiento;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +63,9 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         calificacion = (RatingBar) findViewById(R.id.detalleRatingBar);
         fotos=(GridView)findViewById(R.id.gridFotos);
         listacomentarios=(ListView)findViewById(R.id.listComentarios);
+        salir = (Button) findViewById(R.id.salirDetalle);
+        inicio = (Button) findViewById(R.id.inicioDetalle);
+        mAuth = FirebaseAuth.getInstance();
 
 
         imageAdapter = new ImageAdapter(this);
@@ -67,6 +76,7 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
         listacomentarios.setAdapter(new ComentariosListAdapter(this,alojamiento.getCalificaciones()));
+        Toast.makeText(this, Integer.toString(alojamiento.getCalificaciones().size()), Toast.LENGTH_SHORT).show();
 
         tipo.setText(alojamiento.getTipo());
         descripcion.setText(alojamiento.getDescripcion());
@@ -75,6 +85,13 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         calificacion.setRating(alojamiento.getPuntaje());
 
 
+        inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activar = new Intent(view.getContext(),UsuarioMainActivity.class);
+                startActivity(activar);
+            }
+        });
 
         reservar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +106,15 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
             descargaryMostrarFoto(fotico.getRutaFoto());
         }
 
-
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(ConsultarAlojamientoDetalleActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
     }
 

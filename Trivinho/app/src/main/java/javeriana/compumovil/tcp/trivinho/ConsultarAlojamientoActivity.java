@@ -278,10 +278,9 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         if(hora>6&&hora<=18){
             mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this,R.raw.style_map_day));
         }
-        else{
-            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this,R.raw.style_map_night));
+        else {
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_map_night));
         }
-        Toast.makeText(this,Integer.toString(hora),Toast.LENGTH_LONG).show();
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
