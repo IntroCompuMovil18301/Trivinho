@@ -517,9 +517,6 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         Toast.makeText(this, "Filtrando alojamientos disponibles para las fechas indicadas.", Toast.LENGTH_LONG).show();
         mMap.clear();
         LatLng ubicacion = new LatLng(latitudBusqueda, longitudBusqueda);
-        mMap.addMarker(new MarkerOptions().position(ubicacion).title("Ubicación central")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         dibujarCirculo2km();
 
         myRef = database.getReference(Utils.getPathAlojamientos());

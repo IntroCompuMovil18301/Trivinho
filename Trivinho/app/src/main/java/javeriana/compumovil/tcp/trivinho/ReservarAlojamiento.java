@@ -93,7 +93,7 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
     private static final int ID_PERMISSION_LOCATION = 1;
     private static final int REQUEST_CHECK_SETTINGS = 1;
 
-    private static boolean ubicacionInicialColocada = false;
+    private boolean ubicacionInicialColocada = false;
     private Button reservar;
 
     private JsonObjectRequest jsonObjectRequest;
