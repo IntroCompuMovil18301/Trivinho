@@ -1,5 +1,6 @@
 package javeriana.compumovil.tcp.trivinho;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -36,13 +37,15 @@ import javeriana.compumovil.tcp.trivinho.negocio.Usuario;
 public class CalificarAlojamientoActivity extends AppCompatActivity {
 
     private String alojamiento;
+    private String usuario;
     private EditText comentario;
     private RatingBar estrellas;
     private TextView anfitrion;
     private ImageView foto;
     private Button calificar;
 
-    Alojamiento alojamientoO;
+
+    private Alojamiento alojamientoO;
 
 
 
@@ -59,15 +62,16 @@ public class CalificarAlojamientoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calificar_alojamiento);
 
 
-        alojamiento = "";
+
         alojamiento = getIntent().getStringExtra("alojamiento");
-        Log.i("AKI:", alojamiento);
+        usuario = getIntent().getStringExtra("usuario");
         estrellas = (RatingBar) findViewById(R.id.estrellasCal);
 
         estrellas.setNumStars(5);
         anfitrion = (TextView) findViewById(R.id.nombreAnfitrion);
         foto = (ImageView) findViewById(R.id.fotoAlojamientoCal);
         calificar = (Button) findViewById(R.id.calificar);
+        comentario = (EditText) findViewById(R.id.comentarioCal);
 
 
 
@@ -81,6 +85,8 @@ public class CalificarAlojamientoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 almacenarCalificacion();
+                Intent intent = new Intent (CalificarAlojamientoActivity.this, UsuarioMainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -88,10 +94,13 @@ public class CalificarAlojamientoActivity extends AppCompatActivity {
 
 
     private void almacenarCalificacion(){
-        alojamientoO.setNumeroCalificaciones(alojamientoO.getNumeroReservas()+1);
 
+        int numeroReservasCalificaciones=alojamientoO.getNumeroCalificaciones()+1;
+        alojamientoO.setNumeroCalificaciones(numeroReservasCalificaciones);
         Calificacion calificacion = new Calificacion();
         calificacion.setCalificacion(estrellas.getRating());
+        calificacion.setUsuario(usuario);
+        calificacion.setComentario(comentario.getText().toString());
         myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento +"/" + "numeroCalificaciones");
         myRef.setValue(alojamientoO.getNumeroCalificaciones());
 
