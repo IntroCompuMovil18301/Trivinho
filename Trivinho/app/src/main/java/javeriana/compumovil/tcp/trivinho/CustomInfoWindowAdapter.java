@@ -63,7 +63,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             precio.setVisibility(View.VISIBLE);
             descripion.setText(alojamiento.getDescripcion());
             descripion.setVisibility(View.VISIBLE);
-            rating.setRating(alojamiento.getPuntaje().floatValue());
+            rating.setRating(alojamiento.getPuntaje());
             rating.setVisibility(View.VISIBLE);
             foto.setVisibility(View.VISIBLE);
             FotoAlojamiento fotoAlojamiento = alojamiento.getFotos().get(0);
