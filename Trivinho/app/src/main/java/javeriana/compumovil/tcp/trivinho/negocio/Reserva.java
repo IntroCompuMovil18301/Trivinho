@@ -1,5 +1,7 @@
 package javeriana.compumovil.tcp.trivinho.negocio;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Reserva implements Serializable {
@@ -15,9 +17,18 @@ public class Reserva implements Serializable {
     private String alojamiento;
     private String huesped;
 
+    private Bitmap foto;
+
     private Alojamiento alojamientoO;
     private Usuario anfitrionO;
 
+    public Bitmap getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
+    }
 
     public int getDiaInicio() {
         return diaInicio;
