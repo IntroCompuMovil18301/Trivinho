@@ -718,4 +718,6 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         return validos;
     }
 
+
+
 }

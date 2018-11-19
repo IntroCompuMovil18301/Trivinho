@@ -7,7 +7,7 @@
     tools:context=".CalificarAlojamientoActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/fotoAlojamientoCal"
         android:layout_width="217dp"
         android:layout_height="303dp"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/apartamento" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/nombreAnfitrion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,10 +28,10 @@
         android:text="Anfitrion: Pepito perez"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/fotoAlojamientoCal" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/estrellasCal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,10 +39,10 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+        app:layout_constraintTop_toBottomOf="@+id/nombreAnfitrion" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/comentarioCal"
         android:layout_width="wrap_content"
         android:layout_height="73dp"
         android:layout_marginStart="8dp"
@@ -52,7 +52,7 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/estrellasCal" />
 
     <Button
         android:id="@+id/calificar"
@@ -66,5 +66,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/comentarioCal" />
 </android.support.constraint.ConstraintLayout>
