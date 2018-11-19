@@ -284,6 +284,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
                 }
                 else if(marker.getTag()!= null && (marker.getTag() instanceof SitioDeInteres)){
                     marker.showInfoWindow();
+                    alojamientoSeleccionado=null;
                 }
                 else{
                     alojamientoSeleccionado = null;
