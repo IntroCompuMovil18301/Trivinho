@@ -70,6 +70,8 @@ public class UsuarioMainActivity extends AppCompatActivity {
         notificaciones=(Button) findViewById(R.id.notificaciones);
         verSolicitudes=(Button) findViewById(R.id.verSolicitudes);
 
+        startService(new Intent(this, ReservaTerminada.class));
+
         foto = (ImageView) findViewById(R.id.fotoUsuario);
 
         mAuth = FirebaseAuth.getInstance();
