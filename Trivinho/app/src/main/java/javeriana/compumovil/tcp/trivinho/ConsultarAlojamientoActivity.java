@@ -58,12 +58,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Alojamiento;
 import javeriana.compumovil.tcp.trivinho.negocio.FechaDisponible;
 import javeriana.compumovil.tcp.trivinho.negocio.FotoAlojamiento;
+import javeriana.compumovil.tcp.trivinho.negocio.SitioDeInteres;
 
 public class ConsultarAlojamientoActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -96,6 +98,7 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
 
     private EditText mfechaInicio;
     private EditText mfechaFinal;
+    private List<Marker> sitios;
 
     private DatabaseReference myRef;
     private DatabaseReference myRef2;
@@ -124,6 +127,8 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mAuth = FirebaseAuth.getInstance();
 
         database = FirebaseDatabase.getInstance();
+
+        sitios = new ArrayList<Marker>();
 
         filtrarBusqueda = (Button) findViewById(R.id.filtrarBusqueda);
 
@@ -269,10 +274,13 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                marker.showInfoWindow();
+                mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-                if (marker.getTag()!= null)
+                if (marker.getTag()!= null && (marker.getTag() instanceof Alojamiento)) {
+                    marker.showInfoWindow();
                     alojamientoSeleccionado = (Alojamiento) marker.getTag();
+                    mostrarSitiosInteres();
+                }
                 else{
                     alojamientoSeleccionado = null;
                 }
@@ -280,6 +288,61 @@ public class ConsultarAlojamientoActivity extends FragmentActivity implements On
             }
         });
 
+    }
+
+    private void mostrarSitiosInteres(){
+        for (Marker marker: sitios){
+            marker.remove();
+        }
+        sitios.clear();
+        for (SitioDeInteres sitioDeInteres: alojamientoSeleccionado.getSitiosDeInteres()){
+            LatLng ubicacion = new LatLng(sitioDeInteres.getLatitud(), sitioDeInteres.getLongitud());
+            if (sitioDeInteres.getTipo().equals("Gimnasio")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Gimnasio: "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorgimnasio))));
+            }
+
+            if (sitioDeInteres.getTipo().equals("Transporte")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Transporte "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortransporte))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Restaurante")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Restaurante "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorrestaurante))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Cajero")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Cajero "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadordinero))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Farmacia")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Farmacia "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorenfermeria))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Supermercado")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Supermercado "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadormercado))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Centro comercial")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Centro comercial "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadortienda))));
+            }
+
+            if (sitioDeInteres.getTipo().toString().equals("Aeropuerto")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Aeropuerto "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadoraeropuerto))));
+            }
+
+            if (sitioDeInteres.getTipo().equals("Otros")) {
+                sitios.add(mMap.addMarker(new MarkerOptions().position(ubicacion).title("Otros "+sitioDeInteres.getDescripcion())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marcadorotros))));
+            }
+            sitios.get(sitios.size() - 1).setTag(sitioDeInteres);
+        }
     }
 
     private void reservar(){
