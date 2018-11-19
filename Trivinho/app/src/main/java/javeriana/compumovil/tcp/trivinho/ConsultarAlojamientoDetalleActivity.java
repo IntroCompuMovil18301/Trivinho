@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -76,7 +77,6 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
         listacomentarios.setAdapter(new ComentariosListAdapter(this,alojamiento.getCalificaciones()));
-        Toast.makeText(this, Integer.toString(alojamiento.getCalificaciones().size()), Toast.LENGTH_SHORT).show();
 
         tipo.setText(alojamiento.getTipo());
         descripcion.setText(alojamiento.getDescripcion());
@@ -84,6 +84,21 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         moneda.setText(alojamiento.getTipoMoneda());
         calificacion.setRating(alojamiento.getPuntaje());
 
+        listacomentarios.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        fotos.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         inicio.setOnClickListener(new View.OnClickListener() {
             @Override
