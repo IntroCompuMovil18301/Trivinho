@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VerHistorialDeReservasActivity">
+    tools:context=".negocio.VerHistorialDeReservasActivity">
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     <TextView
@@ -91,6 +92,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
+=======
+>>>>>>> parent of 910c2af... Revert "VerHistoricoV1"
 =======
 >>>>>>> parent of 910c2af... Revert "VerHistoricoV1"
 =======
