@@ -205,15 +205,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/detalleRatingBar">
 
                 <Button
-                    android:id="@+id/sitiosDeInteres"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/sitios_de_interes"
-                    tools:layout_editor_absoluteX="86dp"
-                    tools:layout_editor_absoluteY="554dp" />
-
-                <Button
                     android:id="@+id/detalleReservar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

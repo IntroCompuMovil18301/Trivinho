@@ -49,7 +49,6 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_alojamiento);
-        versitiosInteres=(Button) findViewById(R.id.sitiosDeInteres);
         reservar=(Button) findViewById(R.id.detalleReservar);
         tipo = (TextView) findViewById(R.id.detalleTipo);
         descripcion = (TextView) findViewById(R.id.detalleDescripcion);
@@ -76,18 +75,12 @@ public class ConsultarAlojamientoDetalleActivity extends AppCompatActivity {
         calificacion.setRating(alojamiento.getPuntaje());
 
 
-        versitiosInteres.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent activar=new Intent(view.getContext(),VerSitiosDeInteres.class);
-                startActivity(activar);
-            }
-        });
 
         reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent activar=new Intent(view.getContext(),ReservarAlojamiento.class);
+                activar.putExtra("alojamiento", alojamiento);
                 startActivity(activar);
             }
         });

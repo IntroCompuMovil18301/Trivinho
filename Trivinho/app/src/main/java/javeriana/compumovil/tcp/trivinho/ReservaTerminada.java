@@ -127,12 +127,15 @@ public class ReservaTerminada extends IntentService {
 
         Intent intent = new Intent(this, CalificarAlojamientoActivity.class);
         intent.putExtra("alojamiento", alojamiento);
-        intent.putExtra("usuario", user.getUid());
+        intent.putExtra("usuario", user.getDisplayName());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
+
+        myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i) + "/" + "calificada");
+        myRef2.setValue(true);
 
         notificationId ++;
         NotificationManagerCompat notificationManager =
@@ -140,7 +143,6 @@ public class ReservaTerminada extends IntentService {
 // notificationId es un entero unico definido para cada notificacion que se lanza
         notificationManager.notify(notificationId, mBuilder.build());
 
-        myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(i) + "/" + "calificada");
-        myRef2.setValue(true);
+
     }
 }
