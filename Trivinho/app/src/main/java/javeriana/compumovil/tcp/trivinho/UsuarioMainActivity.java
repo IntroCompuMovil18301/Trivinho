@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javeriana.compumovil.tcp.trivinho.negocio.Usuario;
+import javeriana.compumovil.tcp.trivinho.negocio.VerHistorialDeReservasActivity;
 
 public class UsuarioMainActivity extends AppCompatActivity {
 
