@@ -77,7 +77,7 @@
 
     </LinearLayout>
 
-    
+
     <ListView
         android:id="@+id/listaReservasUsuario"
         android:layout_width="0dp"
