@@ -31,13 +31,14 @@ public class HistorialReservasUsuarioListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        final View v = inflater.inflate(R.layout.item_comentarios,null);
+        final View v = inflater.inflate(R.layout.item_historial_reserva_usuario,null);
         String fechaI,fechaF;
 
         TextView nombre = (TextView) v.findViewById(R.id.historialPropietarioUsuario);
         TextView fechaInicial = (TextView) v.findViewById(R.id.historialFechaInicial);
         TextView fechaFinal = (TextView) v.findViewById(R.id.historialFechaFinal);
         TextView precio = (TextView) v.findViewById(R.id.historialPrecioUsuario);
+        TextView moneda = (TextView) v.findViewById(R.id.historialMonedaUsuario);
         ImageView imagen = (ImageView) v.findViewById(R.id.historialImagenUsuario);
 
         fechaI=Integer.toString(reservas.get(i).getDiaInicio())+"/"+Integer.toString(reservas.get(i).getMesInicio())+"/"+Integer.toString(reservas.get(i).getAnioInicio());
@@ -46,6 +47,7 @@ public class HistorialReservasUsuarioListAdapter extends BaseAdapter {
         nombre.setText(reservas.get(i).getAnfitrionO().getNombres()+" "+reservas.get(i).getAnfitrionO().getApellidos());
         fechaInicial.setText(fechaI);
         fechaFinal.setText(fechaF);
+        moneda.setText(reservas.get(i).getAlojamientoO().getTipoMoneda());
         precio.setText(Double.toString(reservas.get(i).getAlojamientoO().getValorPorNoche()));
         imagen.setImageBitmap(reservas.get(i).getFoto());
 
