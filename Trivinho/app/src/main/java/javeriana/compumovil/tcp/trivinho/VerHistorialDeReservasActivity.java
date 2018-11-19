@@ -47,6 +47,7 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     List<Reserva> reservas;
 
     private StorageReference mStorageRef;
+    private Reserva reserva;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +71,9 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Huesped huesped = dataSnapshot.getValue(Huesped.class);
                 if(huesped.getReservas()!=null){
-                    for (Reserva reserva: huesped.getReservas()){
-                        descargarAnfitron(reserva);
+                    for (Reserva reservaO: huesped.getReservas()){
+                        reserva = reservaO;
+                        descargarAnfitron();
                     }
                 }
                 else{
@@ -85,7 +87,8 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
         });
     }
 
-    private void descargarAnfitron(final Reserva reserva){
+    private void descargarAnfitron(){
+        Log.i("RESERVA", reserva.getAlojamiento());
         myRef = database.getReference(Utils.getPathAlojamientos()+reserva.getAlojamiento());
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

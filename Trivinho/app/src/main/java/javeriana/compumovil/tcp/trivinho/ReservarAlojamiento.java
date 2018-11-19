@@ -287,31 +287,42 @@ public class ReservarAlojamiento extends FragmentActivity implements OnMapReadyC
         Toast.makeText(this, "El alojamiento no está disponible o está reservado en estas fechas.", Toast.LENGTH_LONG).show();
     }
 
-    private void guardarReservaAlojamiento (Reserva reserva){
-        alojamiento.setNumeroReservas(alojamiento.getNumeroReservas()+1);
+    private void guardarReservaAlojamiento (final Reserva reserva){
         reserva.setHuesped(user.getUid());
-        myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento.getId() +"/" + "numeroReservas");
-        myRef.setValue(alojamiento.getNumeroReservas());
-        myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento.getId() + "/reservas/" + String.valueOf(alojamiento.getNumeroReservas()-1));
+
+        myRef = database.getReference(Utils.getPathAlojamientos() + alojamiento.getId() +"/" + "reservas");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Reserva> reservas;
+                reservas = (List<Reserva>)dataSnapshot.getValue();
+                if (reservas == null)
+                    reservas = new ArrayList<Reserva>();
+                reservas.add(reserva);
+                myRef.setValue(reservas);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("ERROR: ", "error en la consulta", databaseError.toException());
+            }
+        });
+
         myRef.setValue(reserva);
     }
 
     private void guardarReservaHuesped (final Reserva reserva){
         reserva.setHuesped(null);
         reserva.setAlojamiento(alojamiento.getId());
-        myRef = database.getReference (Utils.getPathHuespedes() + user.getUid() + "/numeroReservas");
+        myRef = database.getReference (Utils.getPathHuespedes() + user.getUid() + "/reservas");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    Log.i("RESERVA ENC", "1");
-                    int numeroReservas = dataSnapshot.getValue(Integer.class);
-                    numeroReservas++;
-                    myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() +"/" + "numeroReservas");
-                    myRef2.setValue(numeroReservas);
-                    myRef2 = database.getReference(Utils.getPathHuespedes() + user.getUid() + "/reservas/" + String.valueOf(numeroReservas-1));
-                    myRef2.setValue(reserva);
-
+                    List<Reserva> reservas;
+                    reservas = (List<Reserva>)dataSnapshot.getValue();
+                    if (reservas == null)
+                        reservas = new ArrayList<Reserva>();
+                    reservas.add(reserva);
+                    myRef.setValue(reservas);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
