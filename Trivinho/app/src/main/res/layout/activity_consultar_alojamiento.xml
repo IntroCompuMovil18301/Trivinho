@@ -254,8 +254,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
-                android:fadeScrollbars="true"
-                android:fastScrollAlwaysVisible="true"
                 android:numColumns="2"
                 android:scrollbarFadeDuration="1"
                 android:scrollbarSize="10dp"
