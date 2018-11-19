@@ -65,8 +65,7 @@
         <activity android:name=".AgregarAlojamientoUbicacionActivity" />
         <activity android:name=".AgregarAlojamientoFotosActivity" />
         <activity android:name=".AgregarAlojamientoFechasActivity" />
-        <activity android:name=".AgregarAlojamientoSitiosInteresActivity" />
-        <activity android:name=".VerHistorialDeReservasActivity"></activity>
+        <activity android:name=".AgregarAlojamientoSitiosInteresActivity"></activity>
     </application>
 
 </manifest>

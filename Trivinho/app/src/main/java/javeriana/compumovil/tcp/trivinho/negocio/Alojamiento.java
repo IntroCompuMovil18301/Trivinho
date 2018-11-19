@@ -13,7 +13,6 @@ public class Alojamiento implements Serializable {
     private String tipoMoneda;
     private String descripcion;
     private float  puntaje;
-    private String anfitrion;
 
     private double latitud;
     private double longitud;
@@ -140,15 +139,4 @@ public class Alojamiento implements Serializable {
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
     }
-
-    public String getAnfitrion() {
-        return anfitrion;
-    }
-
-    public void setAnfitrion(String anfitrion) {
-        this.anfitrion = anfitrion;
-    }
-
-
-
 }
