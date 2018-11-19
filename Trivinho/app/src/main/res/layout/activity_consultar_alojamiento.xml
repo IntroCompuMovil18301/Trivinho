@@ -185,19 +185,6 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/button15"
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_margin="2dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/usuario"
-                    android:padding="2dp"
-                    android:text="@string/ver_perfil"
-                    android:textColor="@color/common_google_signin_btn_text_dark_default"
-                    tools:layout_editor_absoluteX="212dp"
-                    tools:layout_editor_absoluteY="352dp" />
-
             </LinearLayout>
 
             <LinearLayout
