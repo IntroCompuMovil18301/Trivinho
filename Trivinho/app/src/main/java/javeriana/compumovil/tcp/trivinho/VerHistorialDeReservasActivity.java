@@ -1,11 +1,14 @@
 package javeriana.compumovil.tcp.trivinho;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +45,9 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
     private DatabaseReference myRef2;
     private FirebaseDatabase database;
 
+    private Button salir;
+    private Button inicio;
+
     private ListView lista;
     private HistorialReservasUsuarioListAdapter adaptador;
 
@@ -55,6 +61,9 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_historial_de_reservas);
 
+        salir = (Button) findViewById(R.id.salirHistorial);
+        inicio = (Button) findViewById(R.id.inicioHistorial);
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         database= FirebaseDatabase.getInstance();
@@ -66,6 +75,24 @@ public class VerHistorialDeReservasActivity extends AppCompatActivity {
         lista.setAdapter(adaptador);
 
         obtenerListaDeReservas();
+
+        inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activar = new Intent(view.getContext(),UsuarioMainActivity.class);
+                startActivity(activar);
+            }
+        });
+
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(VerHistorialDeReservasActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 
 

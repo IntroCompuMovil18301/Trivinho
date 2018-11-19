@@ -55,7 +55,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/inicioHistorial"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
@@ -66,7 +66,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/salir7"
+            android:id="@+id/salirHistorial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

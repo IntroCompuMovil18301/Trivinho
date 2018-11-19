@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +34,23 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
     private Spinner tipoSitio;
     private EditText descripcionSitio;
     private Button siguiente;
+    private Button salir;
+    private Button inicio;
 
+    private FirebaseAuth mAuth;
 
-    List<Marker> sitios;
-    List<SitioDeInteres> sitiosDeInteres;
+    private List<Marker> sitios;
+    private List<SitioDeInteres> sitiosDeInteres;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_alojamiento_sitios_interes);
+
+        salir = (Button) findViewById(R.id.salirAgregarSitios);
+        inicio = (Button) findViewById(R.id.inicioAgregarSitios);
+        mAuth = FirebaseAuth.getInstance();
 
         alojamiento = (Alojamiento) getIntent().getSerializableExtra("alojamiento");
 
@@ -59,7 +67,13 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
         descripcionSitio = (EditText) findViewById(R.id.descripcionsi);
         siguiente = (Button) findViewById(R.id.siguiente6);
 
-
+        inicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activar = new Intent(view.getContext(),UsuarioMainActivity.class);
+                startActivity(activar);
+            }
+        });
 
         agregarSitio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +86,16 @@ public class AgregarAlojamientoSitiosInteresActivity extends FragmentActivity im
             @Override
             public void onClick(View v) {
                 guardarSitiosDeInteres();
+            }
+        });
+
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(AgregarAlojamientoSitiosInteresActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
