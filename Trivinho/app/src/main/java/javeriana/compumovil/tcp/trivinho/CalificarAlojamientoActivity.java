@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,8 +59,9 @@ public class CalificarAlojamientoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calificar_alojamiento);
 
 
-
+        alojamiento = "";
         alojamiento = getIntent().getStringExtra("alojamiento");
+        Log.i("AKI:", alojamiento);
         estrellas = (RatingBar) findViewById(R.id.estrellasCal);
 
         estrellas.setNumStars(5);
